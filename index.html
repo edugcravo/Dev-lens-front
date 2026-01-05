@@ -1,7 +1,6 @@
 <html class="scroll-smooth" lang="pt-BR"><head>
 
-
-
+<link rel="icon" type="image/png" href="favicon.ico">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>DevLens - The Frontend God Mode</title>
@@ -39,8 +38,6 @@
                         'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
                         'border-spin': 'borderSpin 3s linear infinite',
                         'typewriter': 'typewriter 4s steps(40) infinite',
-                        
-                        // New Animations for Matrix Sync Comparison
                         'resize-struggle': 'resizeStruggle 8s ease-in-out infinite',
                         'cursor-drag': 'cursorDrag 8s ease-in-out infinite',
                         'sync-scroll': 'syncScroll 10s ease-in-out infinite alternate',
@@ -80,30 +77,28 @@
                             '0%': { transform: 'translateX(-100%)' },
                             '100%': { transform: 'translateX(100%)' }
                         },
-                        
-                        // Simulation: Manual Resize
+                        // CORREÇÃO: Usando % em vez de pixels fixos para evitar quebra no mobile
                         resizeStruggle: {
                             '0%': { width: '100%' },
-                            '20%': { width: '380px' }, /* Shrink to Mobile */
-                            '35%': { width: '380px' }, /* Pause */
-                            '50%': { width: '700px' }, /* Expand to Tablet */
-                            '65%': { width: '700px' }, /* Pause */
-                            '80%': { width: '100%' }, /* Back to Desktop */
+                            '20%': { width: '60%' },
+                            '35%': { width: '60%' },
+                            '50%': { width: '98%' }, // Limitado a 98% container
+                            '65%': { width: '98%' },
+                            '80%': { width: '100%' },
                             '100%': { width: '100%' }
                         },
+                        // CORREÇÃO: Cursor acompanha as porcentagens acima
                         cursorDrag: {
                             '0%': { left: '100%', opacity: 0 },
                             '5%': { left: '100%', opacity: 1 },
-                            '20%': { left: '380px', opacity: 1 },
-                            '35%': { left: '380px', opacity: 1 },
-                            '50%': { left: '700px', opacity: 1 },
-                            '65%': { left: '700px', opacity: 1 },
+                            '20%': { left: '60%', opacity: 1 },
+                            '35%': { left: '60%', opacity: 1 },
+                            '50%': { left: '95%', opacity: 1 },
+                            '65%': { left: '95%', opacity: 1 },
                             '80%': { left: '100%', opacity: 1 },
                             '95%': { left: '100%', opacity: 0 },
                             '100%': { left: '100%', opacity: 0 }
                         },
-                        
-                        // Simulation: Matrix Sync Scroll
                         syncScroll: {
                             '0%': { transform: 'translateY(0)' },
                             '100%': { transform: 'translateY(-150px)' }
@@ -117,17 +112,13 @@
         body {
             background-color: #02040a;
             color: #fff;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Garantia extra global */
         }
-
-        /* Glassmorphism */
         .glass-card {
             background: #0c111c;
             border: 1px solid #1e293b;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-
-        /* 3D Keys Styles */
         .key-3d {
             background: linear-gradient(to bottom, #1e293b, #0f172a);
             border-top: 1px solid rgba(255,255,255,0.1);
@@ -152,8 +143,6 @@
             transition: opacity 0.2s;
         }
         .key-3d:hover::after { opacity: 1; }
-
-        /* Window Stack for Manifesto */
         .window-stack {
             position: absolute;
             width: 200px;
@@ -166,38 +155,27 @@
             transform-origin: center;
             transition: all 0.5s ease;
         }
-
-        /* Grid Background */
         .bg-grid {
             background-size: 50px 50px;
             mask-image: linear-gradient(to bottom, transparent, 5%, white, 95%, transparent);
         }
-
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #02040a; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #334155; }
-
-        /* Network Section Colors */
         .json-key { color: #e879f9; } 
         .json-string { color: #4ade80; } 
         .json-number { color: #60a5fa; }
         .code-scroll::-webkit-scrollbar { width: 4px; }
         .code-scroll::-webkit-scrollbar-thumb { background: #374151; }
-
-        /* Device Mockups */
         .device-border { border: 2px solid #334155; background: #02040a; position: relative; overflow: hidden; }
         .device-border::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 16px; background: #1e293b; z-index: 10; opacity: 0.5; }
-
         .dl-filled-input { 
             background-color: rgba(74, 222, 128, 0.15) !important; 
             border-color: #4ade80 !important;
             box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.1);
             transition: all 0.3s;
         }
-
-        /* Pricing Card Premium */
         .pricing-card-pro {
             background: linear-gradient(145deg, rgba(17, 24, 39, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%);
             position: relative;
@@ -221,8 +199,6 @@
             border-radius: 23px;
             z-index: -1;
         }
-
-        /* Marquee */
         .marquee-container {
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
@@ -232,19 +208,29 @@
             width: max-content;
             animation: scrollReverse 30s linear infinite;
         }
-
-        /* Toggle Switch Animation */
         .toggle-btn[data-state="on"] {
-            background-color: #6366f1; /* Brand Primary */
+            background-color: #6366f1;
         }
         .toggle-btn[data-state="on"] .toggle-circle {
             transform: translateX(16px);
         }
+        
+        /* Mobile Specific Overrides for Animations */
+        @media (max-width: 768px) {
+            .mobile-scale-down {
+                transform: scale(0.60); /* Escala um pouco menor para garantir */
+                transform-origin: top center;
+            }
+            .mobile-scale-container {
+                height: 320px; /* Altura ajustada */
+                overflow: hidden; /* IMPORTANTE: Garante que nada vaze */
+            }
+        }
     </style>
-<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:"Plus Jakarta Sans", sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:"JetBrains Mono", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.-inset-1{inset:-0.25rem}.-inset-10{inset:-2.5rem}.inset-0{inset:0px}.-bottom-6{bottom:-1.5rem}.-left-10{left:-2.5rem}.-left-12{left:-3rem}.-left-3{left:-0.75rem}.-left-8{left:-2rem}.-right-4{right:-1rem}.-right-8{right:-2rem}.-top-3{top:-0.75rem}.-top-8{top:-2rem}.bottom-16{bottom:4rem}.bottom-2{bottom:0.5rem}.bottom-20{bottom:5rem}.bottom-24{bottom:6rem}.bottom-8{bottom:2rem}.left-1{left:0.25rem}.left-1\/2{left:50%}.left-10{left:2.5rem}.left-16{left:4rem}.left-4{left:1rem}.left-48{left:12rem}.right-0{right:0px}.right-1{right:0.25rem}.right-16{right:4rem}.right-20{right:5rem}.right-4{right:1rem}.top-0{top:0px}.top-1{top:0.25rem}.top-1\/2{top:50%}.top-12{top:3rem}.top-16{top:4rem}.top-20{top:5rem}.top-24{top:6rem}.top-4{top:1rem}.-z-10{z-index:-10}.z-0{z-index:0}.z-10{z-index:10}.z-20{z-index:20}.z-30{z-index:30}.z-50{z-index:50}.col-span-1{grid-column:span 1 / span 1}.col-span-2{grid-column:span 2 / span 2}.mx-auto{margin-left:auto;margin-right:auto}.-ml-1{margin-left:-0.25rem}.-mt-3{margin-top:-0.75rem}.mb-1{margin-bottom:0.25rem}.mb-10{margin-bottom:2.5rem}.mb-12{margin-bottom:3rem}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-20{margin-bottom:5rem}.mb-24{margin-bottom:6rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-4{margin-left:1rem}.mt-0\.5{margin-top:0.125rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.aspect-\[4\/3\]{aspect-ratio:4/3}.aspect-square{aspect-ratio:1 / 1}.h-1\.5{height:0.375rem}.h-10{height:2.5rem}.h-12{height:3rem}.h-2{height:0.5rem}.h-2\.5{height:0.625rem}.h-20{height:5rem}.h-24{height:6rem}.h-28{height:7rem}.h-3{height:0.75rem}.h-32{height:8rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-60{height:15rem}.h-64{height:16rem}.h-8{height:2rem}.h-9{height:2.25rem}.h-\[160px\]{height:160px}.h-\[180px\]{height:180px}.h-\[200px\]{height:200px}.h-\[240px\]{height:240px}.h-\[260px\]{height:260px}.h-\[300px\]{height:300px}.h-\[400px\]{height:400px}.h-\[500px\]{height:500px}.h-\[600px\]{height:600px}.h-\[800px\]{height:800px}.h-auto{height:auto}.h-full{height:100%}.h-px{height:1px}.min-h-\[400px\]{min-height:400px}.w-1{width:0.25rem}.w-1\.5{width:0.375rem}.w-1\/2{width:50%}.w-10{width:2.5rem}.w-12{width:3rem}.w-2{width:0.5rem}.w-2\.5{width:0.625rem}.w-20{width:5rem}.w-28{width:7rem}.w-3{width:0.75rem}.w-3\/4{width:75%}.w-32{width:8rem}.w-4{width:1rem}.w-5\/6{width:83.333333%}.w-52{width:13rem}.w-6{width:1.5rem}.w-64{width:16rem}.w-8{width:2rem}.w-9{width:2.25rem}.w-\[120px\]{width:120px}.w-\[180px\]{width:180px}.w-\[300px\]{width:300px}.w-\[400px\]{width:400px}.w-\[500px\]{width:500px}.w-\[600px\]{width:600px}.w-\[800px\]{width:800px}.w-\[80px\]{width:80px}.w-full{width:100%}.w-px{width:1px}.max-w-2xl{max-width:42rem}.max-w-5xl{max-width:64rem}.max-w-6xl{max-width:72rem}.max-w-7xl{max-width:80rem}.max-w-\[200px\]{max-width:200px}.max-w-lg{max-width:32rem}.max-w-md{max-width:28rem}.max-w-sm{max-width:24rem}.max-w-xl{max-width:36rem}.max-w-xs{max-width:20rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-x-full{--tw-translate-x:-100%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-x-0{--tw-translate-x:0px;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-x-12{--tw-translate-x:3rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-x-6{--tw-translate-x:1.5rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-0{--tw-translate-y:0px;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-12{--tw-translate-y:3rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-4{--tw-translate-y:1rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-6{--tw-translate-y:1.5rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-rotate-6{--tw-rotate:-6deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.rotate-0{--tw-rotate:0deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.rotate-12{--tw-rotate:12deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.rotate-6{--tw-rotate:6deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes scroll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}.animate-\[scroll_20s_linear_infinite\]{animation:scroll 20s linear infinite}.animate-\[sync-scroll_3s_ease-in-out_infinite_alternate\]{animation:sync-scroll 3s ease-in-out infinite alternate}@keyframes cursorDrag{0%{left:100%;opacity:0}5%{left:100%;opacity:1}20%{left:380px;opacity:1}35%{left:380px;opacity:1}50%{left:700px;opacity:1}65%{left:700px;opacity:1}80%{left:100%;opacity:1}95%{left:100%;opacity:0}100%{left:100%;opacity:0}}.animate-cursor-drag{animation:cursorDrag 8s ease-in-out infinite}@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}.animate-fade-in-up{animation:fadeInUp 0.8s ease-out forwards}@keyframes float{0%, 100%{transform:translateY(0)}50%{transform:translateY(-20px)}}.animate-float{animation:float 6s ease-in-out infinite}@keyframes float{0%, 100%{transform:translateY(0)}50%{transform:translateY(-20px)}}.animate-float-delayed{animation:float 6s ease-in-out 3s infinite}@keyframes ping{75%, 100%{transform:scale(2);opacity:0}}.animate-ping{animation:ping 1s cubic-bezier(0, 0, 0.2, 1) infinite}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}@keyframes pulseGlow{0%, 100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}.animate-pulse-glow{animation:pulseGlow 3s ease-in-out infinite}@keyframes resizeStruggle{0%{width:100%}20%{width:380px}35%{width:380px}50%{width:700px}65%{width:700px}80%{width:100%}100%{width:100%}}.animate-resize-struggle{animation:resizeStruggle 8s ease-in-out infinite}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}@keyframes syncScroll{0%{transform:translateY(0)}100%{transform:translateY(-150px)}}.animate-sync-scroll{animation:syncScroll 10s ease-in-out infinite alternate}.cursor-default{cursor:default}.cursor-not-allowed{cursor:not-allowed}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-end{align-items:flex-end}.items-center{align-items:center}.items-stretch{align-items:stretch}.justify-start{justify-content:flex-start}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:0.25rem}.gap-1\.5{gap:0.375rem}.gap-12{gap:3rem}.gap-16{gap:4rem}.gap-2{gap:0.5rem}.gap-20{gap:5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.-space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(-0.5rem * var(--tw-space-x-reverse));margin-left:calc(-0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.375rem * var(--tw-space-y-reverse))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.space-y-8 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem * var(--tw-space-y-reverse))}.overflow-auto{overflow:auto}.overflow-hidden{overflow:hidden}.scroll-smooth{scroll-behavior:smooth}.whitespace-nowrap{white-space:nowrap}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-\[22px\]{border-radius:22px}.rounded-\[24px\]{border-radius:24px}.rounded-\[32px\]{border-radius:32px}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded-l-lg{border-top-left-radius:0.5rem;border-bottom-left-radius:0.5rem}.rounded-t-2xl{border-top-left-radius:1rem;border-top-right-radius:1rem}.rounded-t-lg{border-top-left-radius:0.5rem;border-top-right-radius:0.5rem}.border{border-width:1px}.border-2{border-width:2px}.border-4{border-width:4px}.border-y{border-top-width:1px;border-bottom-width:1px}.border-b{border-bottom-width:1px}.border-l-2{border-left-width:2px}.border-l-4{border-left-width:4px}.border-r-4{border-right-width:4px}.border-t{border-top-width:1px}.border-dashed{border-style:dashed}.border-\[\#007acc\]\/40{border-color:rgb(0 122 204 / 0.4)}.border-\[\#4285f4\]\/40{border-color:rgb(66 133 244 / 0.4)}.border-\[\#f24e1e\]\/40{border-color:rgb(242 78 30 / 0.4)}.border-\[\#ff6c37\]\/40{border-color:rgb(255 108 55 / 0.4)}.border-bg{--tw-border-opacity:1;border-color:rgb(2 4 10 / var(--tw-border-opacity, 1))}.border-blue-500\/20{border-color:rgb(59 130 246 / 0.2)}.border-brand-accent\/20{border-color:rgb(236 72 153 / 0.2)}.border-brand-primary{--tw-border-opacity:1;border-color:rgb(99 102 241 / var(--tw-border-opacity, 1))}.border-brand-primary\/20{border-color:rgb(99 102 241 / 0.2)}.border-brand-primary\/30{border-color:rgb(99 102 241 / 0.3)}.border-brand-primary\/50{border-color:rgb(99 102 241 / 0.5)}.border-brand-secondary\/20{border-color:rgb(168 85 247 / 0.2)}.border-brand-secondary\/30{border-color:rgb(168 85 247 / 0.3)}.border-brand-success{--tw-border-opacity:1;border-color:rgb(16 185 129 / var(--tw-border-opacity, 1))}.border-brand-success\/20{border-color:rgb(16 185 129 / 0.2)}.border-brand-success\/40{border-color:rgb(16 185 129 / 0.4)}.border-orange-500\/20{border-color:rgb(249 115 22 / 0.2)}.border-pink-500\/20{border-color:rgb(236 72 153 / 0.2)}.border-purple-500\/20{border-color:rgb(168 85 247 / 0.2)}.border-red-900\/50{border-color:rgb(127 29 29 / 0.5)}.border-slate-600{--tw-border-opacity:1;border-color:rgb(71 85 105 / var(--tw-border-opacity, 1))}.border-slate-600\/50{border-color:rgb(71 85 105 / 0.5)}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.border-slate-700\/50{border-color:rgb(51 65 85 / 0.5)}.border-slate-800{--tw-border-opacity:1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.border-teal-500\/20{border-color:rgb(20 184 166 / 0.2)}.border-transparent{border-color:transparent}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-white\/5{border-color:rgb(255 255 255 / 0.05)}.bg-\[\#007acc\]\/10{background-color:rgb(0 122 204 / 0.1)}.bg-\[\#02040a\]{--tw-bg-opacity:1;background-color:rgb(2 4 10 / var(--tw-bg-opacity, 1))}.bg-\[\#02040a\]\/80{background-color:rgb(2 4 10 / 0.8)}.bg-\[\#020617\]{--tw-bg-opacity:1;background-color:rgb(2 6 23 / var(--tw-bg-opacity, 1))}.bg-\[\#050810\]{--tw-bg-opacity:1;background-color:rgb(5 8 16 / var(--tw-bg-opacity, 1))}.bg-\[\#050911\]{--tw-bg-opacity:1;background-color:rgb(5 9 17 / var(--tw-bg-opacity, 1))}.bg-\[\#080b14\]{--tw-bg-opacity:1;background-color:rgb(8 11 20 / var(--tw-bg-opacity, 1))}.bg-\[\#0b0f1a\]{--tw-bg-opacity:1;background-color:rgb(11 15 26 / var(--tw-bg-opacity, 1))}.bg-\[\#0b101b\]{--tw-bg-opacity:1;background-color:rgb(11 16 27 / var(--tw-bg-opacity, 1))}.bg-\[\#0c111c\]{--tw-bg-opacity:1;background-color:rgb(12 17 28 / var(--tw-bg-opacity, 1))}.bg-\[\#0d1117\]{--tw-bg-opacity:1;background-color:rgb(13 17 23 / var(--tw-bg-opacity, 1))}.bg-\[\#0f141e\]{--tw-bg-opacity:1;background-color:rgb(15 20 30 / var(--tw-bg-opacity, 1))}.bg-\[\#111621\]{--tw-bg-opacity:1;background-color:rgb(17 22 33 / var(--tw-bg-opacity, 1))}.bg-\[\#151a26\]{--tw-bg-opacity:1;background-color:rgb(21 26 38 / var(--tw-bg-opacity, 1))}.bg-\[\#161b22\]{--tw-bg-opacity:1;background-color:rgb(22 27 34 / var(--tw-bg-opacity, 1))}.bg-\[\#1e293b\]{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-\[\#334155\]{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.bg-\[\#4285f4\]\/10{background-color:rgb(66 133 244 / 0.1)}.bg-\[\#475569\]{--tw-bg-opacity:1;background-color:rgb(71 85 105 / var(--tw-bg-opacity, 1))}.bg-\[\#f24e1e\]\/10{background-color:rgb(242 78 30 / 0.1)}.bg-\[\#ff6c37\]\/10{background-color:rgb(255 108 55 / 0.1)}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-blue-500\/10{background-color:rgb(59 130 246 / 0.1)}.bg-brand-accent{--tw-bg-opacity:1;background-color:rgb(236 72 153 / var(--tw-bg-opacity, 1))}.bg-brand-accent\/10{background-color:rgb(236 72 153 / 0.1)}.bg-brand-accent\/20{background-color:rgb(236 72 153 / 0.2)}.bg-brand-accent\/5{background-color:rgb(236 72 153 / 0.05)}.bg-brand-primary{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity, 1))}.bg-brand-primary\/10{background-color:rgb(99 102 241 / 0.1)}.bg-brand-primary\/20{background-color:rgb(99 102 241 / 0.2)}.bg-brand-primary\/5{background-color:rgb(99 102 241 / 0.05)}.bg-brand-secondary{--tw-bg-opacity:1;background-color:rgb(168 85 247 / var(--tw-bg-opacity, 1))}.bg-brand-secondary\/10{background-color:rgb(168 85 247 / 0.1)}.bg-brand-secondary\/20{background-color:rgb(168 85 247 / 0.2)}.bg-brand-secondary\/5{background-color:rgb(168 85 247 / 0.05)}.bg-brand-success{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-brand-success\/10{background-color:rgb(16 185 129 / 0.1)}.bg-brand-success\/20{background-color:rgb(16 185 129 / 0.2)}.bg-brand-success\/5{background-color:rgb(16 185 129 / 0.05)}.bg-current{background-color:currentColor}.bg-green-500{--tw-bg-opacity:1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.bg-green-500\/50{background-color:rgb(34 197 94 / 0.5)}.bg-orange-900\/20{background-color:rgb(124 45 18 / 0.2)}.bg-pink-500\/10{background-color:rgb(236 72 153 / 0.1)}.bg-purple-500\/10{background-color:rgb(168 85 247 / 0.1)}.bg-red-500{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity, 1))}.bg-red-500\/50{background-color:rgb(239 68 68 / 0.5)}.bg-red-900\/30{background-color:rgb(127 29 29 / 0.3)}.bg-slate-600{--tw-bg-opacity:1;background-color:rgb(71 85 105 / var(--tw-bg-opacity, 1))}.bg-slate-700{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.bg-slate-700\/30{background-color:rgb(51 65 85 / 0.3)}.bg-slate-700\/50{background-color:rgb(51 65 85 / 0.5)}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-slate-800\/20{background-color:rgb(30 41 59 / 0.2)}.bg-slate-800\/30{background-color:rgb(30 41 59 / 0.3)}.bg-slate-800\/50{background-color:rgb(30 41 59 / 0.5)}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-slate-900\/30{background-color:rgb(15 23 42 / 0.3)}.bg-slate-900\/50{background-color:rgb(15 23 42 / 0.5)}.bg-slate-950{--tw-bg-opacity:1;background-color:rgb(2 6 23 / var(--tw-bg-opacity, 1))}.bg-teal-500\/10{background-color:rgb(20 184 166 / 0.1)}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-white\/5{background-color:rgb(255 255 255 / 0.05)}.bg-yellow-500{--tw-bg-opacity:1;background-color:rgb(234 179 8 / var(--tw-bg-opacity, 1))}.bg-yellow-500\/50{background-color:rgb(234 179 8 / 0.5)}.bg-\[linear-gradient\(rgba\(255\2c 255\2c 255\2c 0\.02\)_1px\2c transparent_1px\)\2c linear-gradient\(90deg\2c rgba\(255\2c 255\2c 255\2c 0\.02\)_1px\2c transparent_1px\)\]{background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)}.bg-\[url\(\'https\:\/\/grainy-gradients\.vercel\.app\/noise\.svg\'\)\]{background-image:url('https://grainy-gradients.vercel.app/noise.svg')}.bg-gradient-to-b{background-image:linear-gradient(to bottom, var(--tw-gradient-stops))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.bg-gradient-to-l{background-image:linear-gradient(to left, var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.bg-gradient-to-tr{background-image:linear-gradient(to top right, var(--tw-gradient-stops))}.from-brand-accent{--tw-gradient-from:#ec4899 var(--tw-gradient-from-position);--tw-gradient-to:rgb(236 72 153 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-brand-accent\/5{--tw-gradient-from:rgb(236 72 153 / 0.05) var(--tw-gradient-from-position);--tw-gradient-to:rgb(236 72 153 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-brand-primary{--tw-gradient-from:#6366f1 var(--tw-gradient-from-position);--tw-gradient-to:rgb(99 102 241 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-brand-primary\/20{--tw-gradient-from:rgb(99 102 241 / 0.2) var(--tw-gradient-from-position);--tw-gradient-to:rgb(99 102 241 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-brand-primary\/5{--tw-gradient-from:rgb(99 102 241 / 0.05) var(--tw-gradient-from-position);--tw-gradient-to:rgb(99 102 241 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-brand-primary\/50{--tw-gradient-from:rgb(99 102 241 / 0.5) var(--tw-gradient-from-position);--tw-gradient-to:rgb(99 102 241 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-brand-success\/5{--tw-gradient-from:rgb(16 185 129 / 0.05) var(--tw-gradient-from-position);--tw-gradient-to:rgb(16 185 129 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-red-500\/10{--tw-gradient-from:rgb(239 68 68 / 0.1) var(--tw-gradient-from-position);--tw-gradient-to:rgb(239 68 68 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-slate-400{--tw-gradient-from:#94a3b8 var(--tw-gradient-from-position);--tw-gradient-to:rgb(148 163 184 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-slate-900{--tw-gradient-from:#0f172a var(--tw-gradient-from-position);--tw-gradient-to:rgb(15 23 42 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-transparent{--tw-gradient-from:transparent var(--tw-gradient-from-position);--tw-gradient-to:rgb(0 0 0 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-yellow-600{--tw-gradient-from:#ca8a04 var(--tw-gradient-from-position);--tw-gradient-to:rgb(202 138 4 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-brand-secondary\/10{--tw-gradient-to:rgb(168 85 247 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), rgb(168 85 247 / 0.1) var(--tw-gradient-via-position), var(--tw-gradient-to)}.via-slate-800{--tw-gradient-to:rgb(30 41 59 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #1e293b var(--tw-gradient-via-position), var(--tw-gradient-to)}.via-white\/5{--tw-gradient-to:rgb(255 255 255 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), rgb(255 255 255 / 0.05) var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-brand-secondary{--tw-gradient-to:#a855f7 var(--tw-gradient-to-position)}.to-brand-secondary\/50{--tw-gradient-to:rgb(168 85 247 / 0.5) var(--tw-gradient-to-position)}.to-orange-500\/10{--tw-gradient-to:rgb(249 115 22 / 0.1) var(--tw-gradient-to-position)}.to-slate-600{--tw-gradient-to:#475569 var(--tw-gradient-to-position)}.to-slate-900\/50{--tw-gradient-to:rgb(15 23 42 / 0.5) var(--tw-gradient-to-position)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.to-yellow-500{--tw-gradient-to:#eab308 var(--tw-gradient-to-position)}.bg-\[size\:40px_40px\]{background-size:40px 40px}.bg-clip-text{-webkit-background-clip:text;background-clip:text}.object-cover{object-fit:cover}.p-1{padding:0.25rem}.p-12{padding:3rem}.p-2{padding:0.5rem}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-1{padding-left:0.25rem;padding-right:0.25rem}.px-1\.5{padding-left:0.375rem;padding-right:0.375rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-24{padding-top:6rem;padding-bottom:6rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-32{padding-top:8rem;padding-bottom:8rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-2{padding-bottom:0.5rem}.pb-20{padding-bottom:5rem}.pb-24{padding-bottom:6rem}.pb-6{padding-bottom:1.5rem}.pb-8{padding-bottom:2rem}.pr-5{padding-right:1.25rem}.pt-16{padding-top:4rem}.pt-32{padding-top:8rem}.pt-8{padding-top:2rem}.text-center{text-align:center}.text-right{text-align:right}.font-mono{font-family:"JetBrains Mono", monospace}.font-serif{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-6xl{font-size:3.75rem;line-height:1}.text-\[10px\]{font-size:10px}.text-\[9px\]{font-size:9px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-light{font-weight:300}.font-medium{font-weight:500}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-\[1\.1\]{line-height:1.1}.leading-none{line-height:1}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.tracking-widest{letter-spacing:0.1em}.text-\[\#007acc\]{--tw-text-opacity:1;color:rgb(0 122 204 / var(--tw-text-opacity, 1))}.text-\[\#4285f4\]{--tw-text-opacity:1;color:rgb(66 133 244 / var(--tw-text-opacity, 1))}.text-\[\#f24e1e\]{--tw-text-opacity:1;color:rgb(242 78 30 / var(--tw-text-opacity, 1))}.text-\[\#ff6c37\]{--tw-text-opacity:1;color:rgb(255 108 55 / var(--tw-text-opacity, 1))}.text-black{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.text-blue-300{--tw-text-opacity:1;color:rgb(147 197 253 / var(--tw-text-opacity, 1))}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.text-brand-accent{--tw-text-opacity:1;color:rgb(236 72 153 / var(--tw-text-opacity, 1))}.text-brand-primary{--tw-text-opacity:1;color:rgb(99 102 241 / var(--tw-text-opacity, 1))}.text-brand-primary\/70{color:rgb(99 102 241 / 0.7)}.text-brand-secondary{--tw-text-opacity:1;color:rgb(168 85 247 / var(--tw-text-opacity, 1))}.text-brand-success{--tw-text-opacity:1;color:rgb(16 185 129 / var(--tw-text-opacity, 1))}.text-brand-success\/50{color:rgb(16 185 129 / 0.5)}.text-orange-300{--tw-text-opacity:1;color:rgb(253 186 116 / var(--tw-text-opacity, 1))}.text-orange-400{--tw-text-opacity:1;color:rgb(251 146 60 / var(--tw-text-opacity, 1))}.text-pink-400{--tw-text-opacity:1;color:rgb(244 114 182 / var(--tw-text-opacity, 1))}.text-purple-400{--tw-text-opacity:1;color:rgb(192 132 252 / var(--tw-text-opacity, 1))}.text-red-300{--tw-text-opacity:1;color:rgb(252 165 165 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85 / var(--tw-text-opacity, 1))}.text-teal-400{--tw-text-opacity:1;color:rgb(45 212 191 / var(--tw-text-opacity, 1))}.text-transparent{color:transparent}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-400{--tw-text-opacity:1;color:rgb(250 204 21 / var(--tw-text-opacity, 1))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.line-through{-webkit-text-decoration-line:line-through;text-decoration-line:line-through}.decoration-brand-accent{-webkit-text-decoration-color:#ec4899;text-decoration-color:#ec4899}.decoration-brand-primary\/50{-webkit-text-decoration-color:rgb(99 102 241 / 0.5);text-decoration-color:rgb(99 102 241 / 0.5)}.decoration-brand-warning{-webkit-text-decoration-color:#f59e0b;text-decoration-color:#f59e0b}.decoration-slate-600{-webkit-text-decoration-color:#475569;text-decoration-color:#475569}.decoration-dashed{-webkit-text-decoration-style:dashed;text-decoration-style:dashed}.decoration-wavy{-webkit-text-decoration-style:wavy;text-decoration-style:wavy}.decoration-2{text-decoration-thickness:2px}.decoration-4{text-decoration-thickness:4px}.underline-offset-4{text-underline-offset:4px}.opacity-0{opacity:0}.opacity-10{opacity:0.1}.opacity-25{opacity:0.25}.opacity-30{opacity:0.3}.opacity-40{opacity:0.4}.opacity-5{opacity:0.05}.opacity-50{opacity:0.5}.opacity-60{opacity:0.6}.opacity-75{opacity:0.75}.opacity-80{opacity:0.8}.opacity-\[0\.05\]{opacity:0.05}.opacity-\[0\.08\]{opacity:0.08}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[0_0_10px_rgba\(99\2c 102\2c 241\2c 0\.5\)\]{--tw-shadow:0 0 10px rgba(99,102,241,0.5);--tw-shadow-colored:0 0 10px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[0_0_15px_rgba\(234\2c 179\2c 8\2c 0\.4\)\]{--tw-shadow:0 0 15px rgba(234,179,8,0.4);--tw-shadow-colored:0 0 15px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[0_0_30px_rgba\(255\2c 255\2c 255\2c 0\.1\)\]{--tw-shadow:0 0 30px rgba(255,255,255,0.1);--tw-shadow-colored:0 0 30px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[0_0_50px_-20px_rgba\(16\2c 185\2c 129\2c 0\.2\)\]{--tw-shadow:0 0 50px -20px rgba(16,185,129,0.2);--tw-shadow-colored:0 0 50px -20px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-\[0_20px_50px_rgba\(0\2c 0\2c 0\2c 0\.5\)\]{--tw-shadow:0 20px 50px rgba(0,0,0,0.5);--tw-shadow-colored:0 20px 50px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-inner{--tw-shadow:inset 0 2px 4px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-brand-primary\/25{--tw-shadow-color:rgb(99 102 241 / 0.25);--tw-shadow:var(--tw-shadow-colored)}.outline-none{outline:2px solid transparent;outline-offset:2px}.blur{--tw-blur:blur(8px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-2xl{--tw-blur:blur(40px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-\[120px\]{--tw-blur:blur(120px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-\[150px\]{--tw-blur:blur(150px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-xl{--tw-blur:blur(24px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.drop-shadow-\[0_0_10px_rgba\(250\2c 204\2c 21\2c 0\.5\)\]{--tw-drop-shadow:drop-shadow(0 0 10px rgba(250,204,21,0.5));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.drop-shadow-\[0_0_10px_rgba\(99\2c 102\2c 241\2c 0\.8\)\]{--tw-drop-shadow:drop-shadow(0 0 10px rgba(99,102,241,0.8));filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.grayscale{--tw-grayscale:grayscale(100%);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-xl{--tw-backdrop-blur:blur(24px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.delay-100{transition-delay:100ms}.delay-150{transition-delay:150ms}.delay-200{transition-delay:200ms}.delay-75{transition-delay:75ms}.duration-1000{transition-duration:1000ms}.duration-200{transition-duration:200ms}.duration-300{transition-duration:300ms}.duration-500{transition-duration:500ms}.duration-700{transition-duration:700ms}.\[animation-direction\:reverse\]{animation-direction:reverse}.\[animation-duration\:15s\]{animation-duration:15s}.\[animation-duration\:20s\]{animation-duration:20s}.selection\:bg-brand-primary *::selection{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity, 1))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.selection\:bg-brand-primary::selection{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity, 1))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:-translate-y-0\.5:hover{--tw-translate-y:-0.125rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:rotate-0:hover{--tw-rotate:0deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:scale-105:hover{--tw-scale-x:1.05;--tw-scale-y:1.05;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:scale-\[1\.01\]:hover{--tw-scale-x:1.01;--tw-scale-y:1.01;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:border-blue-500\/30:hover{border-color:rgb(59 130 246 / 0.3)}.hover\:border-brand-accent\/30:hover{border-color:rgb(236 72 153 / 0.3)}.hover\:border-brand-primary\/30:hover{border-color:rgb(99 102 241 / 0.3)}.hover\:border-brand-primary\/50:hover{border-color:rgb(99 102 241 / 0.5)}.hover\:border-brand-secondary\/30:hover{border-color:rgb(168 85 247 / 0.3)}.hover\:border-brand-success\/30:hover{border-color:rgb(16 185 129 / 0.3)}.hover\:border-orange-500\/30:hover{border-color:rgb(249 115 22 / 0.3)}.hover\:border-pink-500\/30:hover{border-color:rgb(236 72 153 / 0.3)}.hover\:border-purple-500\/30:hover{border-color:rgb(168 85 247 / 0.3)}.hover\:border-teal-500\/30:hover{border-color:rgb(20 184 166 / 0.3)}.hover\:bg-\[\#1a202e\]:hover{--tw-bg-opacity:1;background-color:rgb(26 32 46 / var(--tw-bg-opacity, 1))}.hover\:bg-brand-primary:hover{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity, 1))}.hover\:bg-brand-primary\/90:hover{background-color:rgb(99 102 241 / 0.9)}.hover\:bg-brand-secondary\/80:hover{background-color:rgb(168 85 247 / 0.8)}.hover\:bg-slate-200:hover{--tw-bg-opacity:1;background-color:rgb(226 232 240 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-700:hover{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-800:hover{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.hover\:text-\[\#38B2AC\]:hover{--tw-text-opacity:1;color:rgb(56 178 172 / var(--tw-text-opacity, 1))}.hover\:text-\[\#4FC08D\]:hover{--tw-text-opacity:1;color:rgb(79 192 141 / var(--tw-text-opacity, 1))}.hover\:text-\[\#61DAFB\]:hover{--tw-text-opacity:1;color:rgb(97 218 251 / var(--tw-text-opacity, 1))}.hover\:text-\[\#DD0031\]:hover{--tw-text-opacity:1;color:rgb(221 0 49 / var(--tw-text-opacity, 1))}.hover\:text-\[\#FF3E00\]:hover{--tw-text-opacity:1;color:rgb(255 62 0 / var(--tw-text-opacity, 1))}.hover\:text-brand-primary:hover{--tw-text-opacity:1;color:rgb(99 102 241 / var(--tw-text-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:shadow-\[0_0_50px_rgba\(99\2c 102\2c 241\2c 0\.15\)\]:hover{--tw-shadow:0 0 50px rgba(99,102,241,0.15);--tw-shadow-colored:0 0 50px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.hover\:shadow-lg:hover{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.hover\:shadow-white\/20:hover{--tw-shadow-color:rgb(255 255 255 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:-translate-y-1{--tw-translate-y:-0.25rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:-translate-y-2{--tw-translate-y:-0.5rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:-translate-y-3{--tw-translate-y:-0.75rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:-translate-y-4{--tw-translate-y:-1rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:translate-x-1{--tw-translate-x:0.25rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:translate-y-0\.5{--tw-translate-y:0.125rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:rotate-12{--tw-rotate:12deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:scale-105{--tw-scale-x:1.05;--tw-scale-y:1.05;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:scale-110{--tw-scale-x:1.1;--tw-scale-y:1.1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}.group:hover .group-hover\:animate-\[shimmer_1\.5s_infinite\]{animation:shimmer 1.5s infinite}.group:hover .group-hover\:border-brand-secondary\/20{border-color:rgb(168 85 247 / 0.2)}.group:hover .group-hover\:bg-brand-accent{--tw-bg-opacity:1;background-color:rgb(236 72 153 / var(--tw-bg-opacity, 1))}.group:hover .group-hover\:bg-brand-primary{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity, 1))}.group:hover .group-hover\:bg-brand-primary\/20{background-color:rgb(99 102 241 / 0.2)}.group:hover .group-hover\:bg-brand-secondary{--tw-bg-opacity:1;background-color:rgb(168 85 247 / var(--tw-bg-opacity, 1))}.group:hover .group-hover\:bg-brand-success{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.group:hover .group-hover\:text-brand-primary{--tw-text-opacity:1;color:rgb(99 102 241 / var(--tw-text-opacity, 1))}.group:hover .group-hover\:text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.group:hover .group-hover\:opacity-100{opacity:1}.group:hover .group-hover\:opacity-50{opacity:0.5}.group:hover .group-hover\:opacity-75{opacity:0.75}.group:hover .group-hover\:grayscale-0{--tw-grayscale:grayscale(0);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}@media (min-width: 640px){.sm\:flex-row{flex-direction:row}}@media (min-width: 768px){.md\:col-span-1{grid-column:span 1 / span 1}.md\:col-span-12{grid-column:span 12 / span 12}.md\:col-span-2{grid-column:span 2 / span 2}.md\:col-span-4{grid-column:span 4 / span 4}.md\:col-span-6{grid-column:span 6 / span 6}.md\:col-span-8{grid-column:span 8 / span 8}.md\:flex{display:flex}.md\:grid-cols-12{grid-template-columns:repeat(12, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:border-l{border-left-width:1px}.md\:border-t-0{border-top-width:0px}.md\:p-12{padding:3rem}.md\:pl-12{padding-left:3rem}.md\:pt-0{padding-top:0px}.md\:text-5xl{font-size:3rem;line-height:1}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-7xl{font-size:4.5rem;line-height:1}}@media (min-width: 1024px){.lg\:col-span-5{grid-column:span 5 / span 5}.lg\:col-span-7{grid-column:span 7 / span 7}.lg\:block{display:block}.lg\:flex{display:flex}.lg\:h-\[500px\]{height:500px}.lg\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.lg\:gap-24{gap:6rem}}</style></head>
-<body class="selection:bg-brand-primary selection:text-white">
-<!-- Navbar -->
-<nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#02040a]/80 backdrop-blur-xl">
+</head>
+<body class="selection:bg-brand-primary selection:text-white overflow-x-hidden">
+
+<nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#02040a]/90 backdrop-blur-xl">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <div class="flex items-center gap-3 font-bold text-xl tracking-tight cursor-pointer group" onclick="window.scrollTo(0,0)">
             <div class="w-9 h-9 rounded-lg bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center group-hover:bg-brand-primary/20 transition-all">
@@ -252,105 +238,115 @@
             </div>
             <span>DevLens</span>
         </div>
+        
         <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
             <a class="hover:text-white transition-colors" href="#manifesto">Manifesto</a>
             <a class="hover:text-white transition-colors" href="#comparison">Vs Manual</a>
             <a class="hover:text-white transition-colors" href="#god-mode">God Mode</a>
             <a class="hover:text-white transition-colors" href="#pricing">Planos</a>
         </div>
-        <div class="flex items-center gap-4">
-            <a 
-                href="https://chromewebstore.google.com/detail/devlens-pro-ui-network-to/ifbffpdgkjbghndjefjdloajnenfddeh?authuser=0&hl=pt-BR"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-block bg-white text-black px-5 py-2 rounded-lg text-sm font-bold hover:bg-slate-200 transition-all"
-                >
+        
+        <div class="hidden md:flex items-center gap-4">
+            <button class="bg-white text-black px-5 py-2 rounded-lg text-sm font-bold hover:bg-slate-200 transition-all">
                 Baixar Grátis
-                </a>
-
+            </button>
         </div>
+
+        <button class="md:hidden text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+            <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-[#0c111c] border-b border-slate-800 p-6 flex flex-col gap-4 shadow-2xl">
+        <a class="text-slate-300 hover:text-white py-2 border-b border-slate-800" href="#manifesto" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Manifesto</a>
+        <a class="text-slate-300 hover:text-white py-2 border-b border-slate-800" href="#comparison" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Vs Manual</a>
+        <a class="text-slate-300 hover:text-white py-2 border-b border-slate-800" href="#god-mode" onclick="document.getElementById('mobile-menu').classList.add('hidden')">God Mode</a>
+        <a class="text-slate-300 hover:text-white py-2 border-b border-slate-800" href="#pricing" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Planos</a>
+        <button class="bg-brand-primary text-white w-full py-3 rounded-lg font-bold mt-2">
+            Baixar Grátis
+        </button>
     </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="relative pt-32 pb-24 overflow-hidden">
+<section class="relative pt-12 md:pt-32 pb-12 md:pb-24 overflow-hidden w-full">
+    
     <div class="absolute inset-0 bg-grid opacity-[0.08] z-0 pointer-events-none"></div>
-    <div class="absolute top-0 right-0 w-[800px] h-[600px] bg-brand-primary/10 blur-[120px] rounded-full opacity-40 z-0"></div>
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-            <!-- Text Content -->
-            <div class="space-y-8 animate-fade-in-up">
+    
+    <div class="absolute top-0 right-0 w-[90vw] md:w-[800px] h-[300px] md:h-[600px] bg-brand-primary/10 blur-[60px] md:blur-[120px] rounded-full opacity-40 z-0 pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            
+            <div class="space-y-6 md:space-y-8 animate-fade-in-up text-center lg:text-left order-2 lg:order-1">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-xs font-mono font-medium">
                     <span class="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse"></span>
                     v2.0 Stable Release
                 </div>
-                <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
                     Pare de adivinhar.<br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">Comece a ver.</span>
                 </h1>
-                <p class="text-lg text-slate-400 leading-relaxed max-w-lg">
+                <p class="text-sm md:text-lg text-slate-400 leading-relaxed max-w-lg mx-auto lg:mx-0">
                     O kit de ferramentas definitivo que vive no seu navegador. Inspecione pixel-perfect, simule APIs e teste responsividade sem nunca sair da aba.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="https://chromewebstore.google.com/detail/devlens-pro-ui-network-to/ifbffpdgkjbghndjefjdloajnenfddeh?authuser=0&amp;hl=pt-BR" target="_blank" rel="noopener noreferrer" class="h-12 px-8 rounded-lg bg-brand-primary text-white font-bold hover:bg-brand-primary/90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-primary/25 group">
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start w-full">
+                    <a class="h-12 px-6 sm:px-8 rounded-lg bg-brand-primary text-white font-bold hover:bg-brand-primary/90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-primary/25 group w-full sm:w-auto" href="https://chromewebstore.google.com/detail/devlens-pro-ui-network-to/ifbffpdgkjbghndjefjdloajnenfddeh?authuser=0&amp;hl=pt-BR" rel="noopener noreferrer" target="_blank">
                         Adicionar ao Chrome
                         <span class="material-symbols-outlined text-sm group-hover:translate-y-0.5 transition-transform">download</span>
                     </a>
-                    <a href="#network-section" class="h-12 px-8 rounded-lg border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 transition-all font-medium flex items-center gap-2 cursor-pointer">
+                    <a class="h-12 px-6 sm:px-8 rounded-lg border border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 transition-all font-medium flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto" href="#network-section">
                         <span class="material-symbols-outlined text-sm">play_circle</span>
                         Ver em Ação
                     </a>
                 </div>
-                <!-- Social Proof -->
-                <div class="pt-8 flex items-center gap-4 text-xs text-slate-500 font-mono">
+                <div class="pt-4 md:pt-8 flex items-center justify-center lg:justify-start gap-4 text-xs text-slate-500 font-mono">
                     <div class="flex -space-x-2">
-                        <img src="https://i.pravatar.cc/100?img=33" alt="Dev 1" class="w-8 h-8 rounded-full border-2 border-bg object-cover">
-                        <img src="https://i.pravatar.cc/100?img=47" alt="Dev 2" class="w-8 h-8 rounded-full border-2 border-bg object-cover">
-                        <img src="https://i.pravatar.cc/100?img=12" alt="Dev 3" class="w-8 h-8 rounded-full border-2 border-bg object-cover">
-                        <div class="w-8 h-8 rounded-full bg-slate-800 border-2 border-bg flex items-center justify-center text-[10px] text-white font-bold">+2k</div>
+                        <img alt="Dev 1" class="w-8 h-8 rounded-full border-2 border-slate-950 object-cover" src="https://i.pravatar.cc/100?img=33">
+                        <img alt="Dev 2" class="w-8 h-8 rounded-full border-2 border-slate-950 object-cover" src="https://i.pravatar.cc/100?img=47">
+                        <img alt="Dev 3" class="w-8 h-8 rounded-full border-2 border-slate-950 object-cover" src="https://i.pravatar.cc/100?img=12">
+                        <div class="w-8 h-8 rounded-full bg-slate-800 border-2 border-slate-950 flex items-center justify-center text-[10px] text-white font-bold">+2k</div>
                     </div>
-                    <p>Desenvolvedores usando hoje</p>
+                    <p>Devs usando hoje</p>
                 </div>
             </div>
-            <!-- Hero Visual (Rich & Floating) -->
-            <div class="relative h-[600px] flex items-center justify-center">
-                <!-- Main Window: The App -->
-                <div class="relative w-full max-w-lg aspect-[4/3] bg-[#0c111c] border border-slate-800 rounded-xl shadow-2xl overflow-hidden z-10 animate-float">
-                    <div class="h-10 border-b border-slate-800 bg-[#080b14] flex items-center px-4 gap-2">
+
+            <div class="relative w-full min-h-[300px] md:h-[600px] flex items-center justify-center lg:mt-0 order-1 lg:order-2 perspective-1000">
+                
+                <div class="relative w-[95%] md:w-full max-w-lg aspect-[4/3] bg-[#0c111c] border border-slate-800 rounded-xl shadow-2xl overflow-hidden z-10 animate-float mx-auto">
+                    <div class="h-8 md:h-10 border-b border-slate-800 bg-[#080b14] flex items-center px-3 md:px-4 gap-2">
                         <div class="flex gap-1.5">
-                            <div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
-                            <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
-                            <div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+                            <div class="w-2 md:w-2.5 h-2 md:h-2.5 rounded-full bg-red-500/50"></div>
+                            <div class="w-2 md:w-2.5 h-2 md:h-2.5 rounded-full bg-yellow-500/50"></div>
+                            <div class="w-2 md:w-2.5 h-2 md:h-2.5 rounded-full bg-green-500/50"></div>
                         </div>
-                        <div class="ml-4 flex-1 bg-slate-900/50 h-6 rounded flex items-center px-3 text-[10px] text-slate-500 font-mono">
+                        <div class="ml-2 md:ml-4 flex-1 bg-slate-900/50 h-5 md:h-6 rounded flex items-center px-2 md:px-3 text-[9px] md:text-[10px] text-slate-500 font-mono truncate">
                             localhost:3000
                         </div>
                     </div>
-                    <!-- Mock Website Content -->
-                    <div class="relative h-full bg-[#02040a] p-8 flex items-center justify-center">
-                        <div class="space-y-6 w-full max-w-sm">
-                            <div class="h-8 w-3/4 bg-slate-800/50 rounded-lg"></div>
-                            <div class="space-y-3">
-                                <div class="h-4 w-full bg-slate-800/30 rounded"></div>
-                                <div class="h-4 w-5/6 bg-slate-800/30 rounded"></div>
+                    <div class="relative h-full bg-[#02040a] p-4 md:p-8 flex items-center justify-center">
+                        <div class="space-y-3 md:space-y-6 w-full max-w-sm">
+                            <div class="h-5 md:h-8 w-3/4 bg-slate-800/50 rounded-lg"></div>
+                            <div class="space-y-2 md:space-y-3">
+                                <div class="h-2.5 md:h-4 w-full bg-slate-800/30 rounded"></div>
+                                <div class="h-2.5 md:h-4 w-5/6 bg-slate-800/30 rounded"></div>
                             </div>
-                            <div class="flex gap-4">
-                                <div class="h-24 w-full bg-brand-primary/5 border border-brand-primary/20 rounded-lg relative group">
-                                    <div class="absolute -top-3 -left-3 bg-brand-primary text-white text-[10px] px-2 py-0.5 rounded font-mono shadow-lg z-20">
+                            <div class="flex gap-3 md:gap-4">
+                                <div class="h-16 md:h-24 w-full bg-brand-primary/5 border border-brand-primary/20 rounded-lg relative group">
+                                    <div class="absolute -top-3 -left-3 bg-brand-primary text-white text-[9px] md:text-[10px] px-2 py-0.5 rounded font-mono shadow-lg z-20">
                                         button.cta
                                     </div>
-                                    <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-brand-primary text-[10px] font-mono">
+                                    <div class="absolute -bottom-5 md:-bottom-6 left-1/2 -translate-x-1/2 text-brand-primary text-[9px] md:text-[10px] font-mono">
                                         320px
                                     </div>
                                     <div class="absolute inset-0 border border-brand-primary/50 rounded-lg"></div>
                                 </div>
-                                <div class="h-24 w-full bg-slate-800/20 rounded-lg"></div>
+                                <div class="h-16 md:h-24 w-full bg-slate-800/20 rounded-lg"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Floating Element 1: Network Mock -->
-                <div class="absolute -right-8 top-12 bg-[#0b101b] p-4 rounded-xl border border-slate-700 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-20 w-64 animate-float-delayed">
+
+                <div class="hidden md:block absolute -right-8 top-12 bg-[#0b101b] p-4 rounded-xl border border-slate-700 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-20 w-64 animate-float-delayed">
                     <div class="flex items-center gap-2 mb-3 border-b border-slate-800 pb-2">
                         <span class="w-2 h-2 rounded-full bg-brand-success animate-pulse"></span>
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Network Interceptor</span>
@@ -360,13 +356,13 @@
                             <span class="text-[10px] font-mono text-brand-primary">POST /api/login</span>
                             <span class="text-[9px] font-bold text-brand-success bg-brand-success/10 px-1.5 py-0.5 rounded">200 OK</span>
                         </div>
-                        <div class="bg-slate-950 p-2 rounded border border-slate-800 font-mono text-[9px] text-slate-400">
+                        <div class="bg-slate-950 p-2 rounded border border-slate-800 font-mono text-[9px] text-slate-400 truncate">
                             {"token": "eyJh..."}
                         </div>
                     </div>
                 </div>
-                <!-- Floating Element 2: Computed Styles -->
-                <div class="absolute -left-12 bottom-20 bg-[#0b101b] p-4 rounded-xl border border-slate-700 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-20 w-52 animate-float-slow">
+
+                <div class="hidden md:block absolute -left-12 bottom-20 bg-[#0b101b] p-4 rounded-xl border border-slate-700 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-20 w-52 animate-float-slow">
                     <div class="flex items-center gap-2 mb-3 border-b border-slate-800 pb-2">
                         <span class="material-symbols-outlined text-brand-primary text-sm">style</span>
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Computed</span>
@@ -378,72 +374,74 @@
                         <div class="flex justify-between"><span class="text-slate-500">radius</span> <span class="text-white">0.5rem</span></div>
                     </div>
                 </div>
-                <!-- Floating Element 3: Magic Fill -->
-                <div class="absolute -right-4 bottom-8 bg-[#0b101b] p-3 pr-5 rounded-full border border-brand-secondary/30 shadow-xl z-30 flex items-center gap-3 animate-float">
+                
+                <div class="hidden sm:flex absolute right-0 md:-right-4 bottom-4 md:bottom-8 bg-[#0b101b] p-3 pr-5 rounded-full border border-brand-secondary/30 shadow-xl z-30 items-center gap-3 animate-float">
                     <div class="w-8 h-8 rounded-full bg-brand-secondary flex items-center justify-center text-white shadow-lg">
-                        <span class="material-symbols-outlined text-sm js-replaced-missing-icon">radio_button_unchecked</span>
+                        <span class="material-symbols-outlined text-sm">radio_button_unchecked</span>
                     </div>
                     <div>
                         <div class="text-[9px] text-brand-secondary font-bold uppercase">Magic Fill</div>
                         <div class="text-[10px] text-white">Formulário Preenchido</div>
                     </div>
                 </div>
-                <!-- Background Glow -->
+
                 <div class="absolute -inset-10 bg-gradient-to-tr from-brand-primary/20 via-brand-secondary/10 to-transparent blur-2xl -z-10 rounded-full opacity-60"></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Manifesto Section -->
-<section class="py-32 border-y border-white/5 bg-[#050810] relative overflow-hidden" id="manifesto">
+<section class="py-20 md:py-32 border-y border-white/5 bg-[#050810] relative overflow-hidden" id="manifesto">
     <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5"></div>
-    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-primary/5 to-transparent"></div>
+    <div class="absolute top-0 right-0 w-full md:w-1/2 h-full bg-gradient-to-b md:bg-gradient-to-l from-brand-primary/5 to-transparent"></div>
+    
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-20 items-center">
-            <!-- Visual Chaos -->
-            <div class="relative h-[500px] w-full flex items-center justify-center perspective-[2000px]">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div class="relative h-[350px] md:h-[500px] w-full flex items-center justify-center perspective-[2000px] scale-90 md:scale-100 origin-center">
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="w-[400px] h-[400px] border border-slate-800 rounded-full animate-spin [animation-duration:20s] opacity-30"></div>
-                    <div class="w-[300px] h-[300px] border border-slate-700 rounded-full animate-spin [animation-duration:15s] [animation-direction:reverse] opacity-30 absolute"></div>
+                    <div class="w-[300px] md:w-[400px] h-[300px] md:h-[400px] border border-slate-800 rounded-full animate-spin [animation-duration:20s] opacity-30"></div>
+                    <div class="w-[220px] md:w-[300px] h-[220px] md:h-[300px] border border-slate-700 rounded-full animate-spin [animation-duration:15s] [animation-direction:reverse] opacity-30 absolute"></div>
                 </div>
+                
                 <div class="absolute z-0 flex items-center justify-center w-full h-full" id="stack-container">
-                    <div class="window-stack bg-[#1e293b] translate-x-12 translate-y-12 rotate-12 opacity-40"></div>
-                    <div class="window-stack bg-[#334155] translate-x-6 translate-y-6 rotate-6 opacity-60"></div>
-                    <div class="window-stack bg-[#475569] translate-x-0 translate-y-0 rotate-0 opacity-80 border-brand-primary/30"></div>
+                    <div class="window-stack bg-[#1e293b] translate-x-8 md:translate-x-12 translate-y-8 md:translate-y-12 rotate-12 opacity-40 scale-75 md:scale-100"></div>
+                    <div class="window-stack bg-[#334155] translate-x-4 md:translate-x-6 translate-y-4 md:translate-y-6 rotate-6 opacity-60 scale-75 md:scale-100"></div>
+                    <div class="window-stack bg-[#475569] translate-x-0 translate-y-0 rotate-0 opacity-80 border-brand-primary/30 scale-75 md:scale-100"></div>
                 </div>
-                <div class="relative z-20 flex gap-6 transform -rotate-6 hover:rotate-0 transition-transform duration-500">
+                
+                <div class="relative z-20 flex gap-4 md:gap-6 transform -rotate-6 hover:rotate-0 transition-transform duration-500">
                     <div class="flex flex-col items-center group">
-                        <div class="key-3d w-28 h-28 flex items-center justify-center text-4xl font-bold text-slate-300 mb-1 cursor-pointer group-hover:text-brand-primary transition-colors" id="key-alt" onclick="shakeChaos()">ALT</div>
+                        <div class="key-3d w-20 h-20 md:w-28 md:h-28 flex items-center justify-center text-2xl md:text-4xl font-bold text-slate-300 mb-1 cursor-pointer group-hover:text-brand-primary transition-colors" id="key-alt" onclick="shakeChaos()">ALT</div>
                     </div>
                     <div class="flex flex-col items-center group">
-                        <div class="key-3d w-28 h-28 flex items-center justify-center text-4xl font-bold text-slate-300 mb-1 cursor-pointer group-hover:text-brand-primary transition-colors" id="key-tab" onclick="shakeChaos()">TAB</div>
+                        <div class="key-3d w-20 h-20 md:w-28 md:h-28 flex items-center justify-center text-2xl md:text-4xl font-bold text-slate-300 mb-1 cursor-pointer group-hover:text-brand-primary transition-colors" id="key-tab" onclick="shakeChaos()">TAB</div>
                     </div>
                 </div>
-                <div class="absolute inset-0 z-10" id="chaos-container">
-                    <div class="absolute top-20 left-10 p-4 bg-[#007acc]/10 border border-[#007acc]/40 rounded-2xl animate-float backdrop-blur-md chaos-item transition-all flex flex-col items-center gap-2"><span class="material-symbols-outlined text-[#007acc] text-3xl">code</span><span class="text-[10px] font-bold text-blue-300">VS Code</span></div>
-                    <div class="absolute bottom-24 left-16 p-4 bg-[#f24e1e]/10 border border-[#f24e1e]/40 rounded-2xl animate-float-delayed backdrop-blur-md chaos-item transition-all flex flex-col items-center gap-2"><span class="material-symbols-outlined text-[#f24e1e] text-3xl">design_services</span><span class="text-[10px] font-bold text-orange-300">Figma</span></div>
-                    <div class="absolute top-24 right-16 p-4 bg-[#ff6c37]/10 border border-[#ff6c37]/40 rounded-2xl animate-float backdrop-blur-md chaos-item transition-all flex flex-col items-center gap-2"><span class="material-symbols-outlined text-[#ff6c37] text-3xl">rocket_launch</span><span class="text-[10px] font-bold text-orange-300">Postman</span></div>
-                    <div class="absolute bottom-16 right-20 p-4 bg-[#4285f4]/10 border border-[#4285f4]/40 rounded-2xl animate-float-delayed backdrop-blur-md chaos-item transition-all flex flex-col items-center gap-2"><span class="material-symbols-outlined text-[#4285f4] text-3xl">public</span><span class="text-[10px] font-bold text-blue-300">Browser</span></div>
+                
+                <div class="absolute inset-0 z-10 pointer-events-none" id="chaos-container">
+                    <div class="absolute top-10 left-4 md:left-10 p-2 md:p-4 bg-[#007acc]/10 border border-[#007acc]/40 rounded-xl md:rounded-2xl animate-float backdrop-blur-md chaos-item transition-all flex flex-col items-center gap-1 md:gap-2"><span class="material-symbols-outlined text-[#007acc] text-2xl md:text-3xl">code</span><span class="text-[8px] md:text-[10px] font-bold text-blue-300">VS Code</span></div>
+                    <div class="absolute bottom-12 left-8 md:left-16 p-2 md:p-4 bg-[#f24e1e]/10 border border-[#f24e1e]/40 rounded-xl md:rounded-2xl animate-float-delayed backdrop-blur-md chaos-item transition-all flex flex-col items-center gap-1 md:gap-2"><span class="material-symbols-outlined text-[#f24e1e] text-2xl md:text-3xl">design_services</span><span class="text-[8px] md:text-[10px] font-bold text-orange-300">Figma</span></div>
+                    <div class="absolute top-16 right-4 md:right-16 p-2 md:p-4 bg-[#ff6c37]/10 border border-[#ff6c37]/40 rounded-xl md:rounded-2xl animate-float backdrop-blur-md chaos-item transition-all flex flex-col items-center gap-1 md:gap-2"><span class="material-symbols-outlined text-[#ff6c37] text-2xl md:text-3xl">rocket_launch</span><span class="text-[8px] md:text-[10px] font-bold text-orange-300">Postman</span></div>
+                    <div class="absolute bottom-8 right-8 md:right-20 p-2 md:p-4 bg-[#4285f4]/10 border border-[#4285f4]/40 rounded-xl md:rounded-2xl animate-float-delayed backdrop-blur-md chaos-item transition-all flex flex-col items-center gap-1 md:gap-2"><span class="material-symbols-outlined text-[#4285f4] text-2xl md:text-3xl">public</span><span class="text-[8px] md:text-[10px] font-bold text-blue-300">Browser</span></div>
                 </div>
             </div>
-            <!-- Text Copy -->
-            <div class="space-y-8 relative">
+            
+            <div class="space-y-6 md:space-y-8 relative text-center lg:text-left">
                 <div class="absolute -left-10 top-0 w-1 h-20 bg-gradient-to-b from-brand-primary to-transparent hidden lg:block"></div>
                 <div>
                     <span class="text-brand-secondary font-mono text-xs font-bold uppercase tracking-widest border border-brand-secondary/30 px-2 py-1 rounded bg-brand-secondary/5">O Problema</span>
-                    <h2 class="text-4xl md:text-5xl font-bold mt-6 text-white leading-tight">
+                    <h2 class="text-3xl md:text-5xl font-bold mt-4 md:mt-6 text-white leading-tight">
                         O ciclo vicioso de<br>
                         <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-slate-400 to-slate-600 line-through decoration-brand-warning decoration-4 decoration-wavy">Alternar Janelas.</span>
                     </h2>
                 </div>
-                <div class="space-y-6 text-lg text-slate-400 leading-relaxed font-light">
+                <div class="space-y-4 md:space-y-6 text-base md:text-lg text-slate-400 leading-relaxed font-light">
                     <p>Você escreve código. <strong class="text-white cursor-pointer hover:text-brand-primary transition-colors underline decoration-brand-primary/50 underline-offset-4" onclick="shakeChaos()">Alt+Tab.</strong> Confere o navegador. <strong class="text-white cursor-pointer hover:text-brand-primary transition-colors underline decoration-brand-primary/50 underline-offset-4" onclick="shakeChaos()">Alt+Tab.</strong> Abre o Postman. <strong class="text-white cursor-pointer hover:text-brand-primary transition-colors underline decoration-brand-primary/50 underline-offset-4" onclick="shakeChaos()">Alt+Tab.</strong> Volta pro código.</p>
-                    <p>A cada troca de janela, você perde microssegundos de foco. Ao final do dia, isso se torna exaustão mental. O DevLens elimina esse ruído.</p>
-                    <div class="bg-gradient-to-r from-slate-900 to-slate-900/50 p-6 rounded-xl border-l-4 border-brand-primary shadow-xl mt-8">
-                        <p class="text-white italic text-lg font-serif">"O navegador não deveria ser apenas um visualizador passivo. Com o DevLens, ele se torna seu cockpit de desenvolvimento."</p>
+                    <p class="hidden md:block">A cada troca de janela, você perde microssegundos de foco. Ao final do dia, isso se torna exaustão mental. O DevLens elimina esse ruído.</p>
+                    <div class="bg-gradient-to-r from-slate-900 to-slate-900/50 p-6 rounded-xl border-l-4 border-brand-primary shadow-xl mt-8 text-left">
+                        <p class="text-white italic text-base md:text-lg font-serif">"O navegador não deveria ser apenas um visualizador passivo. Com o DevLens, ele se torna seu cockpit de desenvolvimento."</p>
                         <div class="mt-4 flex items-center gap-3">
-                            <img src="https://ui-avatars.com/api/?name=Alex+R&amp;background=6366f1&amp;color=fff" alt="Alex" class="w-10 h-10 rounded-full border border-slate-600">
+                            <img alt="Alex" class="w-10 h-10 rounded-full border border-slate-600" src="https://ui-avatars.com/api/?name=Alex+R&amp;background=6366f1&amp;color=fff">
                             <div><span class="text-sm font-bold text-white block">Alex R.</span><span class="text-xs text-slate-500">Criador do DevLens</span></div>
                         </div>
                     </div>
@@ -453,77 +451,94 @@
     </div>
 </section>
 
-<!-- Comparison Section -->
-<section class="py-24 bg-[#02040a] relative overflow-hidden" id="comparison">
+<section class="py-16 md:py-24 bg-[#02040a] relative overflow-hidden" id="comparison">
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-transparent via-slate-800 to-transparent hidden lg:block"></div>
+    
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div class="text-center mb-24">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6">Responsividade <br><span class="text-brand-primary">Sem Sofrimento.</span></h2>
-            <p class="text-slate-400 max-w-xl mx-auto text-lg">Pare de arrastar a janela do navegador. Teste em todos os dispositivos simultaneamente.</p>
+        <div class="text-center mb-16 md:mb-24">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6">Responsividade <br><span class="text-brand-primary">Sem Sofrimento.</span></h2>
+            <p class="text-slate-400 max-w-xl mx-auto text-base md:text-lg">Pare de arrastar a janela do navegador. Teste em todos os dispositivos simultaneamente.</p>
         </div>
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-24 items-stretch h-auto lg:h-[500px]">
-            <!-- Manual Testing -->
-            <div class="relative group">
+
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-24 items-stretch">
+            
+            <div class="relative group w-full max-w-full overflow-hidden rounded-xl">
                 <div class="absolute -inset-1 bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                <div class="relative bg-[#0d1117] rounded-xl border border-slate-800 overflow-hidden shadow-2xl h-full flex flex-col">
-                    <div class="px-4 py-3 bg-[#161b22] border-b border-slate-800 flex justify-between items-center">
+                
+                <div class="relative bg-[#0d1117] rounded-xl border border-slate-800 shadow-2xl h-full flex flex-col min-h-[400px]">
+                    <div class="px-4 py-3 bg-[#161b22] border-b border-slate-800 flex justify-between items-center shrink-0">
                         <div class="flex space-x-2"><div class="w-2.5 h-2.5 rounded-full bg-slate-600"></div><div class="w-2.5 h-2.5 rounded-full bg-slate-600"></div></div>
                         <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Manual Testing</span>
                     </div>
-                    <div class="flex-1 relative p-8 bg-[#02040a] flex justify-start items-center overflow-hidden">
-                        <div class="h-64 bg-[#1e293b] border-r-4 border-slate-600 rounded-l-lg relative animate-resize-struggle overflow-hidden shadow-lg flex flex-col">
-                            <div class="h-6 bg-slate-800 border-b border-slate-700 w-full mb-2"></div>
+
+                    <div class="flex-1 relative p-4 md:p-8 bg-[#02040a] flex items-center overflow-hidden">
+                        
+                        <div class="h-48 md:h-64 bg-[#1e293b] border-r-4 border-slate-600 rounded-l-lg relative w-full md:animate-resize-struggle overflow-hidden shadow-lg flex flex-col">
+                            <div class="h-6 bg-slate-800 border-b border-slate-700 w-full mb-2 shrink-0"></div>
                             <div class="p-4 space-y-4 flex-1">
                                 <div class="h-4 bg-slate-700/50 rounded w-3/4"></div>
-                                <div class="h-32 bg-slate-700/30 rounded w-full border border-dashed border-slate-600/50 flex items-center justify-center text-xs text-slate-600">Broken Layout?</div>
+                                <div class="h-24 md:h-32 bg-slate-700/30 rounded w-full border border-dashed border-slate-600/50 flex items-center justify-center text-xs text-slate-600">
+                                    <span class="md:hidden">Layout Quebrado</span> <span class="hidden md:block">Broken Layout?</span> </div>
                                 <div class="grid grid-cols-2 gap-2"><div class="h-10 bg-slate-700/30 rounded"></div><div class="h-10 bg-slate-700/30 rounded"></div></div>
                             </div>
                         </div>
-                        <div class="absolute top-1/2 w-6 h-6 -mt-3 z-20 animate-cursor-drag pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); transform: rotate(-45deg);"><path d="M7 2l12 11.2-5.8.5 3.3 7.3-2.2.9-3.2-7.4-4.4 4z" stroke="black" stroke-width="1"></path></svg>
+
+                        <div class="hidden md:block absolute top-1/2 w-6 h-6 -mt-3 z-20 animate-cursor-drag pointer-events-none">
+                            <svg fill="white" height="24" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); transform: rotate(-45deg);" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 2l12 11.2-5.8.5 3.3 7.3-2.2.9-3.2-7.4-4.4 4z" stroke="black" stroke-width="1"></path></svg>
                         </div>
-                        <div class="absolute top-4 left-4 bg-red-900/30 text-red-300 text-xs px-2 py-1 rounded border border-red-900/50 font-mono">Width: ??? px</div>
+                        
+                        <div class="hidden md:block absolute top-4 left-4 bg-red-900/30 text-red-300 text-xs px-2 py-1 rounded border border-red-900/50 font-mono">Width: ??? px</div>
                     </div>
-                    <div class="p-6 border-t border-slate-800 bg-[#0d1117] flex justify-between items-center">
+
+                    <div class="p-6 border-t border-slate-800 bg-[#0d1117] flex justify-between items-center shrink-0">
                         <div class="text-xs text-slate-500"><span class="block font-bold text-slate-300 text-lg">15</span> Cliques/Resize</div>
                         <div class="text-right"><span class="text-3xl font-bold text-slate-700">60s</span><span class="block text-[10px] text-slate-600 uppercase tracking-wider">Tempo Gasto</span></div>
                     </div>
                 </div>
             </div>
-            <!-- DevLens Matrix Sync -->
-            <div class="relative group">
+            
+            <div class="relative group w-full max-w-full overflow-hidden rounded-xl">
                 <div class="absolute -inset-1 bg-gradient-to-r from-brand-primary/50 to-brand-secondary/50 rounded-2xl blur opacity-40 group-hover:opacity-75 transition duration-1000 animate-pulse-glow"></div>
-                <div class="relative bg-[#0c111c] rounded-xl border border-brand-primary/30 overflow-hidden shadow-2xl h-full flex flex-col">
-                    <div class="px-4 py-3 bg-brand-primary/10 border-b border-brand-primary/20 flex justify-between items-center">
+                
+                <div class="relative bg-[#0c111c] rounded-xl border border-brand-primary/30 shadow-2xl h-full flex flex-col min-h-[400px]">
+                    <div class="px-4 py-3 bg-brand-primary/10 border-b border-brand-primary/20 flex justify-between items-center shrink-0">
                         <div class="flex space-x-2 items-center"><span class="w-2 h-2 rounded-full bg-brand-success animate-pulse"></span><span class="text-xs font-bold text-white">Matrix Sync Active</span></div>
                         <span class="text-[10px] font-bold text-brand-primary uppercase tracking-widest">The Smart Way</span>
                     </div>
-                    <!-- FIXED: Added pb-20 and items-center to fix cutoff issues -->
-                    <div class="flex-1 flex items-center justify-center gap-3 p-6 pb-20 relative overflow-hidden bg-[#02040a]">
+                    
+                    <div class="flex-1 relative overflow-hidden bg-[#02040a] flex items-center justify-center p-4">
                         <div class="absolute inset-0 bg-grid opacity-10 animate-[scroll_20s_linear_infinite]"></div>
-                        <div class="device-border w-[80px] h-[200px] rounded-lg shadow-2xl z-10 transform translate-y-4 flex flex-col shrink-0">
-                            <div class="h-full w-full bg-slate-900 p-2 space-y-2 overflow-hidden">
-                                <div class="w-full h-full animate-sync-scroll"><div class="h-6 bg-brand-primary/20 rounded w-full mb-2"></div><div class="h-2 bg-slate-700/50 rounded w-full mb-1"></div><div class="h-20 bg-slate-700/30 rounded w-full mb-2"></div><div class="h-20 bg-slate-700/30 rounded w-full mb-2"></div><div class="h-20 bg-slate-700/30 rounded w-full"></div></div>
+                        
+                        <div class="flex items-end justify-center gap-2 md:gap-3 transform scale-[0.65] md:scale-100 origin-center">
+                            
+                            <div class="device-border w-[80px] h-[200px] rounded-lg shadow-2xl z-10 transform translate-y-4 flex flex-col shrink-0 bg-slate-900">
+                                <div class="h-full w-full p-2 space-y-2 overflow-hidden">
+                                    <div class="w-full h-full animate-sync-scroll"><div class="h-6 bg-brand-primary/20 rounded w-full mb-2"></div><div class="h-2 bg-slate-700/50 rounded w-full mb-1"></div><div class="h-20 bg-slate-700/30 rounded w-full mb-2"></div><div class="h-20 bg-slate-700/30 rounded w-full"></div></div>
+                                </div>
+                            </div>
+
+                            <div class="device-border w-[120px] h-[260px] rounded-lg shadow-2xl z-20 flex flex-col shrink-0 bg-slate-900">
+                                <div class="h-full w-full p-2 space-y-2 overflow-hidden">
+                                    <div class="w-full h-full animate-sync-scroll"><div class="h-8 bg-brand-primary/20 rounded w-full mb-2"></div><div class="flex gap-1 mb-2"><div class="h-24 bg-slate-700/30 rounded w-1/2"></div><div class="h-24 bg-slate-700/30 rounded w-1/2"></div></div><div class="h-24 bg-slate-700/30 rounded w-full"></div></div>
+                                </div>
+                            </div>
+
+                            <div class="device-border w-[180px] h-[240px] rounded-lg shadow-2xl z-10 transform translate-y-6 flex flex-col shrink-0 bg-slate-900">
+                                <div class="h-full w-full p-3 space-y-3 overflow-hidden">
+                                    <div class="w-full h-full animate-sync-scroll"><div class="h-10 bg-brand-primary/20 rounded w-full mb-2"></div><div class="grid grid-cols-3 gap-2 mb-2"><div class="h-20 bg-slate-700/30 rounded"></div><div class="h-20 bg-slate-700/30 rounded"></div><div class="h-20 bg-slate-700/30 rounded"></div></div><div class="h-20 bg-slate-700/30 rounded w-full"></div></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="device-border w-[120px] h-[260px] rounded-lg shadow-2xl z-20 flex flex-col shrink-0">
-                            <div class="h-full w-full bg-slate-900 p-2 space-y-2 overflow-hidden">
-                                <div class="w-full h-full animate-sync-scroll"><div class="h-8 bg-brand-primary/20 rounded w-full mb-2"></div><div class="flex gap-1 mb-2"><div class="h-24 bg-slate-700/30 rounded w-1/2"></div><div class="h-24 bg-slate-700/30 rounded w-1/2"></div></div><div class="h-24 bg-slate-700/30 rounded w-full"></div></div>
-                            </div>
-                        </div>
-                        <div class="device-border w-[180px] h-[240px] rounded-lg shadow-2xl z-10 transform translate-y-6 flex flex-col shrink-0">
-                            <div class="h-full w-full bg-slate-900 p-3 space-y-3 overflow-hidden">
-                                <div class="w-full h-full animate-sync-scroll"><div class="h-10 bg-brand-primary/20 rounded w-full mb-2"></div><div class="grid grid-cols-3 gap-2 mb-2"><div class="h-20 bg-slate-700/30 rounded"></div><div class="h-20 bg-slate-700/30 rounded"></div><div class="h-20 bg-slate-700/30 rounded"></div></div><div class="h-20 bg-slate-700/30 rounded w-full"></div></div>
-                            </div>
-                        </div>
-                        <div class="absolute top-4 left-1/2 -translate-x-1/2 flex items-center justify-center gap-2 animate-pulse-glow z-30">
-                            <div class="bg-brand-success/20 border border-brand-success/40 px-3 py-1 rounded-full flex items-center gap-2 backdrop-blur-md">
+
+                        <div class="absolute top-4 left-4 flex items-center justify-start gap-2 animate-pulse-glow z-30">
+                            <div class="bg-brand-success/20 border border-brand-success/40 px-3 py-1 rounded-full flex items-center gap-2 backdrop-blur-md whitespace-nowrap">
                                 <span class="material-symbols-outlined text-brand-success text-sm">sync</span>
-                                <span class="text-brand-success font-bold text-xs">All 3 Devices Synced</span>
+                                <span class="text-brand-success font-bold text-xs">Synced</span>
                             </div>
                         </div>
                     </div>
-                    <div class="p-6 border-t border-brand-primary/20 bg-brand-primary/5 flex justify-between items-center">
+                    
+                    <div class="p-6 border-t border-brand-primary/20 bg-brand-primary/5 flex justify-between items-center shrink-0">
                         <div class="text-xs text-brand-primary"><span class="block font-bold text-white text-lg">0</span> Cliques</div>
                         <div class="text-right"><span class="text-3xl font-bold text-white drop-shadow-[0_0_10px_rgba(99,102,241,0.8)]">Instant</span><span class="block text-[10px] text-brand-primary uppercase tracking-wider">Tempo Gasto</span></div>
                     </div>
@@ -532,25 +547,21 @@
         </div>
     </div>
 </section>
-
-<!-- GOD MODE SECTION (OPTIMIZED & COMPACT) -->
-<section class="py-32 bg-[#02040a] relative overflow-hidden" id="god-mode">
+<section class="py-20 md:py-32 bg-[#02040a] relative overflow-hidden" id="god-mode">
     <div class="absolute inset-0 bg-grid opacity-[0.05] pointer-events-none"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-primary/10 blur-[150px] rounded-full pointer-events-none"></div>
-    <div class="max-w-7xl mx-auto px-6 mb-16 text-center relative z-10">
+    <div class="max-w-7xl mx-auto px-6 mb-12 md:mb-16 text-center relative z-10">
         <span class="text-brand-secondary font-mono text-xs font-bold uppercase tracking-widest bg-brand-secondary/10 px-3 py-1 rounded-full border border-brand-secondary/20">Dashboard</span>
-        <h2 class="text-4xl md:text-5xl font-bold mt-6 text-white mb-6">Seu Novo <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">Super Poder</span>.</h2>
-        <p class="text-slate-400 text-lg">Controle total sobre o DOM. Compacto, poderoso e sempre à mão.</p>
+        <h2 class="text-3xl md:text-5xl font-bold mt-6 text-white mb-6">Seu Novo <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">Super Poder</span>.</h2>
+        <p class="text-slate-400 text-base md:text-lg">Controle total sobre o DOM. Compacto, poderoso e sempre à mão.</p>
     </div>
-
-    <!-- Optimized Horizontal Widget -->
-    <div class="max-w-5xl mx-auto bg-[#0b0f1a] rounded-[32px] p-6 border border-slate-800 shadow-2xl relative z-20 transition-all hover:shadow-[0_0_50px_rgba(99,102,241,0.15)] group/widget">
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-8 pb-6 border-b border-slate-800">
+    
+    <div class="max-w-5xl mx-auto bg-[#0b0f1a] rounded-[24px] md:rounded-[32px] p-4 md:p-6 border border-slate-800 shadow-2xl relative z-20 transition-all hover:shadow-[0_0_50px_rgba(99,102,241,0.15)] group/widget">
+        <div class="flex items-center justify-between mb-6 md:mb-8 pb-4 md:pb-6 border-b border-slate-800">
             <div class="flex items-center gap-3">
-                <span class="text-yellow-400 material-symbols-outlined text-3xl drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">bolt</span>
+                <span class="text-yellow-400 material-symbols-outlined text-2xl md:text-3xl drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">bolt</span>
                 <div>
-                    <span class="text-xl font-bold text-white tracking-tight block leading-none">DevLens</span>
+                    <span class="text-lg md:text-xl font-bold text-white tracking-tight block leading-none">DevLens</span>
                     <span class="text-[10px] text-slate-500 font-mono">ULTIMATE EDITION</span>
                 </div>
             </div>
@@ -559,94 +570,80 @@
                     <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
                     SYSTEM ONLINE
                 </div>
-                <div class="px-4 py-1.5 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-500 text-[10px] font-bold text-black uppercase tracking-wider shadow-[0_0_15px_rgba(234,179,8,0.4)] cursor-default hover:scale-105 transition-transform">
-                     Pro Lifetime
+                <div class="px-3 md:px-4 py-1.5 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-500 text-[9px] md:text-[10px] font-bold text-black uppercase tracking-wider shadow-[0_0_15px_rgba(234,179,8,0.4)] cursor-default">
+                      Pro Lifetime
                 </div>
             </div>
         </div>
-
-        <!-- Bento Grid Layout -->
+        
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <!-- Card 1: Inspetor UI -->
-            <div class="bg-[#151a26] rounded-2xl p-5 border border-slate-800 relative group transition-all hover:border-blue-500/30 hover:bg-[#1a202e] flex flex-col justify-between h-[180px]">
-                <div class="flex justify-between items-start">
+            <div class="bg-[#151a26] rounded-2xl p-4 md:p-5 border border-slate-800 relative group transition-all hover:border-blue-500/30 hover:bg-[#1a202e] flex flex-row md:flex-col justify-between items-center md:items-stretch h-auto md:h-[180px]">
+                <div class="flex justify-between items-start w-full">
                     <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform duration-300"><span class="material-symbols-outlined">search</span></div>
-                    <button class="w-10 h-5 rounded-full bg-slate-700 relative transition-colors duration-300 toggle-btn cursor-pointer shadow-inner" data-state="off" onclick="toggleSwitch(this)"><div class="w-3 h-3 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 toggle-circle shadow-sm"></div></button>
+                    <button class="w-10 h-5 rounded-full bg-slate-700 relative transition-colors duration-300 toggle-btn cursor-pointer shadow-inner ml-auto md:ml-0" data-state="off" onclick="toggleSwitch(this)"><div class="w-3 h-3 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 toggle-circle shadow-sm"></div></button>
                 </div>
-                <div>
+                <div class="ml-4 md:ml-0 w-full">
                     <h3 class="text-white font-bold text-sm mb-1">Inspetor UI</h3>
                     <p class="text-[10px] text-slate-400 leading-tight">Visualize fontes, cores e CSS instantaneamente.</p>
                 </div>
             </div>
-
-            <!-- Card 2: Magic Fill -->
-            <div class="bg-[#151a26] rounded-2xl p-5 border border-slate-800 relative group transition-all hover:border-purple-500/30 hover:bg-[#1a202e] flex flex-col justify-between h-[180px]">
-                <div class="flex justify-between items-start">
+            <div class="bg-[#151a26] rounded-2xl p-4 md:p-5 border border-slate-800 relative group transition-all hover:border-purple-500/30 hover:bg-[#1a202e] flex flex-row md:flex-col justify-between items-center md:items-stretch h-auto md:h-[180px]">
+                <div class="flex justify-between items-start w-full">
                     <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform duration-300"><span class="material-symbols-outlined js-replaced-missing-icon">radio_button_unchecked</span></div>
-                    <button class="w-10 h-5 rounded-full bg-slate-700 relative transition-colors duration-300 toggle-btn cursor-pointer shadow-inner" data-state="off" onclick="toggleSwitch(this)"><div class="w-3 h-3 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 toggle-circle shadow-sm"></div></button>
+                    <button class="w-10 h-5 rounded-full bg-slate-700 relative transition-colors duration-300 toggle-btn cursor-pointer shadow-inner ml-auto md:ml-0" data-state="off" onclick="toggleSwitch(this)"><div class="w-3 h-3 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 toggle-circle shadow-sm"></div></button>
                 </div>
-                <div>
+                <div class="ml-4 md:ml-0 w-full">
                     <h3 class="text-white font-bold text-sm mb-1">Magic Fill</h3>
                     <p class="text-[10px] text-slate-400 leading-tight">Preencha formulários com dados reais.</p>
                 </div>
             </div>
-
-            <!-- Card 3: Live Edit -->
-            <div class="bg-[#151a26] rounded-2xl p-5 border border-slate-800 relative group transition-all hover:border-pink-500/30 hover:bg-[#1a202e] flex flex-col justify-between h-[180px]">
-                <div class="flex justify-between items-start">
+            <div class="bg-[#151a26] rounded-2xl p-4 md:p-5 border border-slate-800 relative group transition-all hover:border-pink-500/30 hover:bg-[#1a202e] flex flex-row md:flex-col justify-between items-center md:items-stretch h-auto md:h-[180px]">
+                <div class="flex justify-between items-start w-full">
                     <div class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 group-hover:scale-110 transition-transform duration-300"><span class="material-symbols-outlined">edit</span></div>
-                    <button class="w-10 h-5 rounded-full bg-slate-700 relative transition-colors duration-300 toggle-btn cursor-pointer shadow-inner" data-state="off" onclick="toggleSwitch(this)"><div class="w-3 h-3 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 toggle-circle shadow-sm"></div></button>
+                    <button class="w-10 h-5 rounded-full bg-slate-700 relative transition-colors duration-300 toggle-btn cursor-pointer shadow-inner ml-auto md:ml-0" data-state="off" onclick="toggleSwitch(this)"><div class="w-3 h-3 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 toggle-circle shadow-sm"></div></button>
                 </div>
-                <div>
+                <div class="ml-4 md:ml-0 w-full">
                     <h3 class="text-white font-bold text-sm mb-1">Live Edit</h3>
                     <p class="text-[10px] text-slate-400 leading-tight">Edite textos direto na página.</p>
                 </div>
             </div>
-
-            <!-- Card 4: Network (Span 1 on desktop) -->
-            <div class="bg-[#151a26] rounded-2xl p-5 border border-slate-800 relative group transition-all hover:border-teal-500/30 hover:bg-[#1a202e] flex flex-col justify-between h-[160px]">
-                <div class="flex justify-between items-start">
+            <div class="bg-[#151a26] rounded-2xl p-4 md:p-5 border border-slate-800 relative group transition-all hover:border-teal-500/30 hover:bg-[#1a202e] flex flex-row md:flex-col justify-between items-center md:items-stretch h-auto md:h-[160px]">
+                <div class="flex justify-between items-start w-full">
                     <div class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform duration-300"><span class="material-symbols-outlined">satellite_alt</span></div>
-                    <button class="w-10 h-5 rounded-full bg-slate-700 relative transition-colors duration-300 toggle-btn cursor-pointer shadow-inner" data-state="off" onclick="toggleSwitch(this)"><div class="w-3 h-3 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 toggle-circle shadow-sm"></div></button>
+                    <button class="w-10 h-5 rounded-full bg-slate-700 relative transition-colors duration-300 toggle-btn cursor-pointer shadow-inner ml-auto md:ml-0" data-state="off" onclick="toggleSwitch(this)"><div class="w-3 h-3 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 toggle-circle shadow-sm"></div></button>
                 </div>
-                <div>
+                <div class="ml-4 md:ml-0 w-full">
                     <h3 class="text-white font-bold text-sm mb-1">Network</h3>
                     <p class="text-[10px] text-slate-400 leading-tight">Espione e simule APIs.</p>
                 </div>
             </div>
-
-            <!-- Card 5: Matrix Sync (Span 2 on desktop) -->
-            <div class="md:col-span-2 bg-[#151a26] rounded-2xl p-5 border border-slate-800 relative group transition-all hover:border-orange-500/30 hover:bg-[#1a202e] flex items-center justify-between h-[160px]">
-                <div class="flex flex-col justify-between h-full">
-                     <div class="w-10 h-10 rounded-xl bg-orange-900/20 border border-orange-500/20 flex items-center justify-center text-orange-400 mb-3 group-hover:scale-110 transition-transform duration-300"><span class="material-symbols-outlined">ad_units</span></div>
-                     <div>
+            <div class="md:col-span-2 bg-[#151a26] rounded-2xl p-4 md:p-5 border border-slate-800 relative group transition-all hover:border-orange-500/30 hover:bg-[#1a202e] flex items-center justify-between h-auto md:h-[160px]">
+                <div class="flex flex-row md:flex-col justify-between h-full items-center md:items-start w-full">
+                    <div class="w-10 h-10 rounded-xl bg-orange-900/20 border border-orange-500/20 flex items-center justify-center text-orange-400 mb-0 md:mb-3 group-hover:scale-110 transition-transform duration-300"><span class="material-symbols-outlined">ad_units</span></div>
+                    <div class="ml-4 md:ml-0 flex-1">
                         <h3 class="text-white font-bold text-sm mb-1">Matrix Sync</h3>
                         <p class="text-[10px] text-slate-400 leading-tight">Simulador multi-device com scroll sincronizado.</p>
-                     </div>
-                </div>
-                <div class="h-full flex items-end">
-                    <button class="w-10 h-5 rounded-full bg-slate-700 relative transition-colors duration-300 toggle-btn cursor-pointer shadow-inner" data-state="off" onclick="toggleSwitch(this)"><div class="w-3 h-3 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 toggle-circle shadow-sm"></div></button>
+                    </div>
+                    <button class="w-10 h-5 rounded-full bg-slate-700 relative transition-colors duration-300 toggle-btn cursor-pointer shadow-inner ml-auto md:ml-0 md:absolute md:bottom-5 md:right-5" data-state="off" onclick="toggleSwitch(this)"><div class="w-3 h-3 bg-white rounded-full absolute top-1 left-1 transition-transform duration-300 toggle-circle shadow-sm"></div></button>
                 </div>
             </div>
         </div>
-
-        <!-- Footer Button -->
-        <button class="w-full py-4 rounded-xl bg-[#111621] border border-slate-700 hover:border-brand-primary/50 hover:bg-[#1a202e] hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3 text-slate-300 hover:text-white group relative overflow-hidden active:scale-95" onclick="extractPalette(this)">
+        
+        <button class="w-full py-3 md:py-4 rounded-xl bg-[#111621] border border-slate-700 hover:border-brand-primary/50 hover:bg-[#1a202e] hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3 text-slate-300 hover:text-white group relative overflow-hidden active:scale-95" onclick="extractPalette(this)">
             <span class="text-xl group-hover:rotate-12 transition-transform">🎨</span>
-            <span class="font-bold text-sm">Extrair Paleta de Cores do Site</span>
+            <span class="font-bold text-xs md:text-sm">Extrair Paleta de Cores do Site</span>
             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
         </button>
     </div>
 </section>
 
-<!-- Stack Agnostic -->
-<section class="py-20 border-t border-white/5 bg-[#02040a] overflow-hidden">
-    <div class="max-w-7xl mx-auto px-6 mb-10 text-center">
-        <h3 class="text-2xl font-bold text-slate-400">Framework Whisperer.</h3>
-        <p class="text-sm text-slate-600">Entende seu código, independente da stack.</p>
+<section class="py-16 md:py-20 border-t border-white/5 bg-[#02040a] overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-8 md:mb-10 text-center">
+        <h3 class="text-xl md:text-2xl font-bold text-slate-400">Framework Whisperer.</h3>
+        <p class="text-xs md:text-sm text-slate-600">Entende seu código, independente da stack.</p>
     </div>
     <div class="marquee-container w-full overflow-hidden relative">
-        <div class="marquee-content text-slate-500 font-bold text-xl uppercase tracking-widest items-center">
+        <div class="marquee-content text-slate-500 font-bold text-lg md:text-xl uppercase tracking-widest items-center">
             <div class="flex items-center gap-2 hover:text-[#61DAFB] transition-colors"><span class="material-symbols-outlined">code</span> React</div>
             <div class="flex items-center gap-2 hover:text-[#4FC08D] transition-colors"><span class="material-symbols-outlined">data_object</span> Vue</div>
             <div class="flex items-center gap-2 hover:text-[#DD0031] transition-colors"><span class="material-symbols-outlined">html</span> Angular</div>
@@ -663,14 +660,13 @@
     </div>
 </section>
 
-<!-- Network Section -->
-<section class="py-32 bg-slate-900 border-y border-white/5 relative overflow-hidden" id="network-section">
+<section class="py-20 md:py-32 bg-slate-900 border-y border-white/5 relative overflow-hidden" id="network-section">
     <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div class="mb-16">
+        <div class="mb-12 md:mb-16">
             <span class="text-brand-success font-mono text-sm font-bold tracking-wider uppercase bg-brand-success/10 px-3 py-1 rounded-full border border-brand-success/20">Network Mock</span>
-            <h2 class="text-4xl md:text-6xl font-bold mt-6 mb-6">Simule o Caos.<br><span class="text-slate-500">Sem Backend.</span></h2>
-            <p class="text-xl text-slate-400 max-w-2xl leading-relaxed">Seu backend caiu? Precisa testar um erro 500 ou um usuário Premium? Intercepte, edite e force respostas diretamente no navegador.</p>
+            <h2 class="text-3xl md:text-6xl font-bold mt-4 md:mt-6 mb-4 md:mb-6">Simule o Caos.<br><span class="text-slate-500">Sem Backend.</span></h2>
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed">Seu backend caiu? Precisa testar um erro 500 ou um usuário Premium? Intercepte, edite e force respostas diretamente no navegador.</p>
         </div>
         <div class="grid lg:grid-cols-2 gap-12 items-start">
             <div class="glass-card rounded-3xl p-2 bg-[#020617] overflow-hidden relative group">
@@ -679,23 +675,22 @@
                     <span class="font-mono">Aplicação do Usuário (Demo)</span>
                     <div class="flex gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-red-500"></div><div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div></div>
                 </div>
-                <div class="p-12 flex flex-col items-center justify-center min-h-[400px] text-center" id="app-widget">
+                <div class="p-8 md:p-12 flex flex-col items-center justify-center min-h-[300px] md:min-h-[400px] text-center" id="app-widget">
                     <div class="relative mb-8">
-                        <div class="w-32 h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition-all duration-500 shadow-2xl" id="avatar-ring">
-                            <span class="material-symbols-outlined text-5xl text-slate-500 transition-colors duration-300" id="avatar-icon">person_off</span>
+                        <div class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition-all duration-500 shadow-2xl" id="avatar-ring">
+                            <span class="material-symbols-outlined text-4xl md:text-5xl text-slate-500 transition-colors duration-300" id="avatar-icon">person_off</span>
                         </div>
                         <span class="absolute bottom-2 right-0 bg-slate-700 text-slate-300 text-xs font-bold px-3 py-1 rounded-full border border-slate-600 transition-all duration-300 shadow-lg" id="plan-badge">GUEST</span>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2 transition-all" id="user-name">Visitante Anônimo</h3>
-                    <p class="text-slate-500 mb-8 font-medium" id="user-desc">Acesso restrito. Faça login para ver mais.</p>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-2 transition-all" id="user-name">Visitante Anônimo</h3>
+                    <p class="text-sm md:text-base text-slate-500 mb-8 font-medium" id="user-desc">Acesso restrito. Faça login para ver mais.</p>
                     <div class="w-full max-w-xs bg-slate-800/30 rounded-xl p-4 border border-slate-700/50 flex items-center justify-between group transition-all duration-300" id="feature-box">
                         <div class="flex items-center gap-3"><span class="material-symbols-outlined text-slate-600" id="lock-icon">lock</span><span class="text-sm text-slate-500 font-medium">Dashboard Secreto</span></div>
                         <span class="text-xs text-slate-600 font-mono">LOCKED</span>
                     </div>
                 </div>
             </div>
-            <!-- DevLens Controller -->
-            <div class="relative pt-8">
+            <div class="relative pt-0 md:pt-8">
                 <div class="absolute top-1/2 -left-8 transform -translate-y-1/2 hidden lg:flex text-brand-success/50 items-center"><span class="w-12 h-px bg-current"></span><span class="material-symbols-outlined -ml-1">chevron_right</span></div>
                 <div class="glass-card rounded-2xl border border-brand-success/20 bg-[#050911] shadow-[0_0_50px_-20px_rgba(16,185,129,0.2)] overflow-hidden">
                     <div class="bg-[#0b101b] px-5 py-4 border-b border-slate-800 flex items-center justify-between">
@@ -720,7 +715,7 @@
                             <span class="text-[10px] text-brand-secondary hidden animate-pulse" id="mock-active-label">● OVERRIDE ACTIVE</span>
                         </div>
                         <div class="bg-[#02040a] p-5 rounded-xl border border-slate-800 text-slate-300 relative group code-scroll h-60 overflow-auto shadow-inner">
-                            <pre class="leading-relaxed" id="json-editor"><span class="text-slate-500">// Estado Original (Servidor)</span>
+<pre class="leading-relaxed" id="json-editor"><span class="text-slate-500">// Estado Original (Servidor)</span>
 {
   <span class="json-key">"id"</span>: <span class="json-number">null</span>,
   <span class="json-key">"role"</span>: <span class="json-string">"guest"</span>,
@@ -734,7 +729,7 @@
                     </div>
                     <div class="p-5 border-t border-slate-800 bg-slate-900/30 flex gap-4">
                         <button class="flex-1 bg-white text-black hover:bg-slate-200 py-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-white/20 hover:-translate-y-0.5" id="btn-mock-trigger" onclick="runNetworkScenario()">
-                            <span class="material-symbols-outlined text-base">bolt</span> Injetar Mock "Admin Pro"
+                            <span class="material-symbols-outlined text-base">bolt</span> Injetar Mock
                         </button>
                         <button class="px-4 bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg border border-slate-700 transition-colors" onclick="resetNetworkScenario()" title="Resetar para Original"><span class="material-symbols-outlined text-lg">replay</span></button>
                     </div>
@@ -744,18 +739,16 @@
     </div>
 </section>
 
-<!-- Features Grid (Workflow Unificado) -->
-<section class="py-32 relative bg-[#02040a]" id="features">
+<section class="py-20 md:py-32 relative bg-[#02040a]" id="features">
     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-accent/5 blur-[120px] rounded-full pointer-events-none"></div>
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div class="text-center mb-20">
+        <div class="text-center mb-16 md:mb-20">
             <span class="text-brand-primary font-mono text-xs font-bold uppercase tracking-widest bg-brand-primary/10 px-3 py-1 rounded-full border border-brand-primary/20">Power Tools</span>
-            <h2 class="text-4xl md:text-5xl font-bold mt-6 mb-6">Workflow <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-secondary">Unificado</span>.</h2>
-            <p class="text-slate-400 max-w-xl mx-auto text-lg">Deixe suas ferramentas separadas no passado. Tudo conectado.</p>
+            <h2 class="text-3xl md:text-5xl font-bold mt-4 md:mt-6 mb-4 md:mb-6">Workflow <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-secondary">Unificado</span>.</h2>
+            <p class="text-slate-400 max-w-xl mx-auto text-base md:text-lg">Deixe suas ferramentas separadas no passado. Tudo conectado.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <!-- FEATURE 1: DESIGN MODE (Interactive) -->
-            <div class="col-span-1 md:col-span-12 lg:col-span-7 bg-[#0b0f1a] rounded-[32px] border border-slate-800 p-8 relative overflow-hidden group hover:border-brand-accent/30 transition-all shadow-xl">
+            <div class="col-span-1 md:col-span-12 lg:col-span-7 bg-[#0b0f1a] rounded-[32px] border border-slate-800 p-6 md:p-8 relative overflow-hidden group hover:border-brand-accent/30 transition-all shadow-xl">
                 <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                 <div class="relative z-10 flex flex-col h-full">
                     <div class="flex items-center justify-between mb-8">
@@ -780,15 +773,14 @@
                         </div>
                         <div class="p-8 flex flex-col items-center justify-center text-center h-full relative" id="design-demo-area">
                             <div class="absolute top-4 right-4 bg-brand-accent text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 transition-opacity" id="design-mode-badge">MODE ON</div>
-                            <h4 class="text-3xl font-serif italic text-white mb-4 editable-element transition-all duration-200 outline-none p-2 rounded-lg decoration-brand-accent decoration-dashed underline-offset-4" spellcheck="false">"Sua headline aqui."</h4>
-                            <p class="text-slate-500 max-w-md editable-element transition-all duration-200 outline-none p-2 rounded-lg border border-transparent">Clique no botão "OFF" acima para ativar o modo de edição. Depois, clique em qualquer texto aqui para editar como se fosse mágica.</p>
+                            <h4 class="text-2xl md:text-3xl font-serif italic text-white mb-4 editable-element transition-all duration-200 outline-none p-2 rounded-lg decoration-brand-accent decoration-dashed underline-offset-4" spellcheck="false">"Sua headline aqui."</h4>
+                            <p class="text-slate-500 text-sm md:text-base max-w-md editable-element transition-all duration-200 outline-none p-2 rounded-lg border border-transparent">Clique no botão "OFF" acima para ativar o modo de edição. Depois, clique em qualquer texto aqui para editar.</p>
                             <button class="mt-8 bg-white text-black px-6 py-2 rounded-lg font-bold hover:bg-slate-200 editable-element border border-transparent transition-all outline-none">Botão Editável</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- FEATURE 2: MAGIC FILL -->
-            <div class="col-span-1 md:col-span-6 lg:col-span-5 bg-[#0b0f1a] rounded-[32px] border border-slate-800 p-8 relative overflow-hidden group hover:border-brand-secondary/30 transition-all shadow-xl flex flex-col">
+            <div class="col-span-1 md:col-span-6 lg:col-span-5 bg-[#0b0f1a] rounded-[32px] border border-slate-800 p-6 md:p-8 relative overflow-hidden group hover:border-brand-secondary/30 transition-all shadow-xl flex flex-col">
                 <div class="relative z-10">
                     <div class="w-12 h-12 rounded-2xl bg-brand-secondary/10 border border-brand-secondary/20 flex items-center justify-center text-brand-secondary mb-6 group-hover:scale-110 transition-transform">
                         <span class="material-symbols-outlined text-2xl js-replaced-missing-icon">radio_button_unchecked</span>
@@ -812,8 +804,7 @@
                     </div>
                 </div>
             </div>
-            <!-- FEATURE 3: ASSET EXTRACTOR -->
-            <div class="col-span-1 md:col-span-6 lg:col-span-5 bg-[#0b0f1a] rounded-[32px] border border-slate-800 p-8 relative overflow-hidden group hover:border-brand-primary/30 transition-all shadow-xl">
+            <div class="col-span-1 md:col-span-6 lg:col-span-5 bg-[#0b0f1a] rounded-[32px] border border-slate-800 p-6 md:p-8 relative overflow-hidden group hover:border-brand-primary/30 transition-all shadow-xl">
                 <div class="absolute right-0 top-0 w-32 h-32 bg-brand-primary/10 rounded-full blur-2xl group-hover:bg-brand-primary/20 transition-all"></div>
                 <div class="relative z-10 h-full flex flex-col justify-between">
                     <div>
@@ -829,10 +820,9 @@
                     </div>
                 </div>
             </div>
-            <!-- FEATURE 4: MATRIX SYNC -->
-            <div class="col-span-1 md:col-span-12 lg:col-span-7 bg-[#0b0f1a] rounded-[32px] border border-slate-800 p-8 relative overflow-hidden group hover:border-brand-success/30 transition-all shadow-xl flex items-center justify-between">
-                <div class="relative z-10 max-w-xs">
-                    <div class="w-12 h-12 rounded-2xl bg-brand-success/10 border border-brand-success/20 flex items-center justify-center text-brand-success mb-6"><span class="material-symbols-outlined text-2xl">devices</span></div>
+            <div class="col-span-1 md:col-span-12 lg:col-span-7 bg-[#0b0f1a] rounded-[32px] border border-slate-800 p-6 md:p-8 relative overflow-hidden group hover:border-brand-success/30 transition-all shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0">
+                <div class="relative z-10 max-w-xs text-center md:text-left">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-success/10 border border-brand-success/20 flex items-center justify-center text-brand-success mb-6 mx-auto md:mx-0"><span class="material-symbols-outlined text-2xl">devices</span></div>
                     <h3 class="text-xl font-bold text-white mb-2">Matrix Sync</h3>
                     <p class="text-sm text-slate-400">Scroll e eventos sincronizados entre Mobile e Desktop.</p>
                 </div>
@@ -845,17 +835,16 @@
     </div>
 </section>
 
-<!-- Pricing -->
-<section class="py-32 border-t border-white/5 bg-[#02040a] relative overflow-hidden" id="pricing">
+<section class="py-20 md:py-32 border-t border-white/5 bg-[#02040a] relative overflow-hidden" id="pricing">
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-brand-primary/5 blur-[150px] rounded-full pointer-events-none"></div>
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="text-center mb-16 space-y-4">
-            <h2 class="text-4xl md:text-5xl font-bold text-white">A Ferramenta Definitiva.</h2>
+            <h2 class="text-3xl md:text-5xl font-bold text-white">A Ferramenta Definitiva.</h2>
             <p class="text-slate-400 text-lg">Preço justo. Sem pegadinhas. Feito para durar.</p>
-            <div class="flex items-center justify-center gap-4 mt-8" id="price-toggle-container">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 mt-8" id="price-toggle-container">
                 <span class="text-sm font-medium text-slate-500 line-through decoration-slate-600 decoration-2 cursor-not-allowed group relative" onmouseenter="showSubTooltip(true)" onmouseleave="showSubTooltip(false)">
                     Assinatura Mensal
-                    <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded opacity-0 transition-opacity whitespace-nowrap" id="sub-tooltip">Nós odiamos assinaturas também.</span>
+                    <span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded opacity-0 transition-opacity whitespace-nowrap hidden md:block" id="sub-tooltip">Nós odiamos assinaturas também.</span>
                 </span>
                 <div class="w-12 h-6 bg-brand-primary rounded-full relative shadow-[0_0_10px_rgba(99,102,241,0.5)]">
                     <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm"></div>
@@ -864,7 +853,6 @@
             </div>
         </div>
         <div class="grid md:grid-cols-12 gap-8 items-center max-w-6xl mx-auto">
-            <!-- Free Card -->
             <div class="md:col-span-4 relative group">
                 <div class="absolute inset-0 bg-slate-800/20 blur-xl rounded-3xl transform group-hover:scale-105 transition-transform duration-500"></div>
                 <div class="relative p-8 rounded-2xl bg-[#080b14] border border-white/5 h-full flex flex-col justify-between">
@@ -879,7 +867,6 @@
                     <button class="w-full py-3 rounded-lg border border-slate-700 text-slate-300 font-medium hover:bg-slate-800 hover:text-white transition-all">Instalar Grátis</button>
                 </div>
             </div>
-            <!-- PRO Card -->
             <div class="md:col-span-8 relative pricing-card-pro rounded-[24px] p-1 transform transition-transform hover:scale-[1.01]">
                 <div class="bg-[#0b0f1a] rounded-[22px] p-8 md:p-12 h-full relative overflow-hidden">
                     <div class="relative z-10 flex flex-col md:flex-row gap-12">
@@ -905,7 +892,6 @@
     </div>
 </section>
 
-<!-- Footer -->
 <footer class="bg-black border-t border-white/5 pt-16 pb-8 text-sm">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
         <div class="col-span-2 md:col-span-1">
@@ -988,8 +974,7 @@
         const isOff = btn.getAttribute('data-state') === 'off';
         const newState = isOff ? 'on' : 'off';
         btn.setAttribute('data-state', newState);
-        const card = btn.closest('div[class*="rounded-2xl"]'); // Finds parent card
-        // Try to find the icon container within the card
+        const card = btn.closest('div[class*="rounded-2xl"]');
         let iconContainer = card.querySelector('.w-10.h-10'); 
         
         if (newState === 'on') {
@@ -1001,7 +986,7 @@
 
     function extractPalette(btn) {
         const originalText = btn.querySelector('span:nth-child(2)').innerText;
-        btn.querySelector('span:nth-child(2)').innerText = "Copiado para Clipboard!";
+        btn.querySelector('span:nth-child(2)').innerText = "Copiado!";
         btn.classList.add('bg-green-500/10', 'border-green-500', 'text-green-500');
         setTimeout(() => {
             btn.querySelector('span:nth-child(2)').innerText = originalText;
@@ -1068,7 +1053,7 @@
 
     function updateWidgetToPro() {
         const ring = document.getElementById('avatar-ring');
-        ring.className = "w-32 h-32 rounded-full bg-slate-800 border-4 border-brand-success flex items-center justify-center transition-all duration-500 shadow-[0_0_30px_rgba(16,185,129,0.3)] mb-8";
+        ring.className = "w-24 h-24 md:w-32 md:h-32 rounded-full bg-slate-800 border-4 border-brand-success flex items-center justify-center transition-all duration-500 shadow-[0_0_30px_rgba(16,185,129,0.3)] mb-8";
         const icon = document.getElementById('avatar-icon');
         icon.innerText = "verified_user";
         icon.classList.remove('text-slate-500');
@@ -1088,12 +1073,12 @@
         if(!isMockActive) return;
         isMockActive = false;
         const btn = document.getElementById('btn-mock-trigger');
-        btn.innerHTML = `<span class="material-symbols-outlined text-base">bolt</span> Injetar Mock "Admin Pro"`;
+        btn.innerHTML = `<span class="material-symbols-outlined text-base">bolt</span> Injetar Mock`;
         btn.className = "flex-1 bg-white text-black hover:bg-slate-200 py-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-white/20 hover:-translate-y-0.5";
         document.getElementById('json-editor').innerHTML = defaultJson;
         document.getElementById('mock-active-label').classList.add('hidden');
         const ring = document.getElementById('avatar-ring');
-        ring.className = "w-32 h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition-all duration-500 shadow-2xl mb-8";
+        ring.className = "w-24 h-24 md:w-32 md:h-32 rounded-full bg-slate-800 border-4 border-slate-700 flex items-center justify-center transition-all duration-500 shadow-2xl mb-8";
         const icon = document.getElementById('avatar-icon');
         icon.innerText = "person_off";
         icon.classList.add('text-slate-500');
@@ -1108,8 +1093,6 @@
         box.className = "w-full max-w-xs bg-slate-800/30 rounded-xl p-4 border border-slate-700/50 flex items-center justify-between group transition-all duration-300";
         box.innerHTML = `<div class="flex items-center gap-3"><span class="material-symbols-outlined text-slate-600" id="lock-icon">lock</span><span class="text-sm text-slate-500 font-medium">Dashboard Secreto</span></div><span class="text-xs text-slate-600 font-mono">LOCKED</span>`;
     }
-
-    function demoMagicFill() { }
 </script>
 
 </body></html>
